@@ -1,2 +1,35 @@
-# infra-lab
-自宅サーバ構築・運用の学習記録
+# Infra Lab - Ryo's IT Infrastructure Portfolio
+
+このリポジトリは サーバ構築・運用の学習記録として作成しました。  
+個人検証環境で構築した各種サービス（DNS / NTP / Samba / Zabbixなど）の手順、設定、検証結果をまとめていきます。
+---
+## 目的
+- Linuxサーバ構築・運用の実践スキルを身につける
+- 手順書・設定・トラブル対応を体系的にまとめる
+- ITインフラエンジニアとしてのポートフォリオとして整理
+---
+## 構成一覧
+| ディレクトリ | 内容 |
+|---------------|------|
+| [dns-server](dns-server/) | BINDを使ったDNSサーバ構築と動作確認 |
+| [ntp-server](ntp-server/) | chronyによるNTPサーバ設定 |
+| [samba-server](samba-server/) | Sambaによるファイル共有設定 |
+| [zabbix](zabbix/) | Zabbixによる監視環境構築 |
+| [notes](notes/) | Linux基本コマンド・トラブル対応メモ |
+---
+## 学習環境
+| 項目 | 内容 |
+|------|------|
+| ホストOS | Windows 11 |
+| 仮想化環境 | VirtualBox |
+| ゲストOS | CentOS_Stream9.6 / Ubuntu 24.04 / RHEL9.6 / AlmaLinux 9.6 |
+| IPアドレス | 192.168.56.101 / 192.168.56.102 / 192.168.56.103 /  192.168.56.104 |
+| ネットワークアダプタ | NAT + Host-Only |
+| エディタ | VS Code |
+| バージョン管理 | Git / GitHub |
+---
+## 今後の目標
+- 各サービスを systemd / firewalld / SELinux まで正しく設定
+- サーバ構築の自動化（Shellスクリプト化）
+- 監視・ログ収集・バックアップの連携実験
+- CI/CD・Infrastructure as Code（IaC）への展開
