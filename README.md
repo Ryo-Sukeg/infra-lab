@@ -1,12 +1,12 @@
 # Infra Lab - Ryo's IT Infrastructure Portfolio
 
 このリポジトリは サーバ構築・運用の学習記録として作成しました。  
-個人検証環境で構築した各種サービス（DNS / NTP / Samba / Zabbixなど）の手順、設定、検証結果をまとめていきます。
+個人検証環境で構築した各種サービス（DNS / NTP / Samba / LAMP環境 / Zabbixなど）の手順、設定、検証結果をまとめていきます。
 ---
 ## 目的
 - Linuxサーバ構築・運用の実践スキルを身につける
 - 手順書・設定・トラブル対応を体系的にまとめる
-- ITインフラエンジニアとしてのポートフォリオとして整理
+- サーバエンジニアとしてのポートフォリオとして整理
 ---
 ## 構成一覧
 | ディレクトリ | 内容 |
@@ -14,6 +14,10 @@
 | [dns-server](dns-server/) | BINDを使ったDNSサーバ構築と動作確認 |
 | [ntp-server](ntp-server/) | chronyによるNTPサーバ設定 |
 | [samba-server](samba-server/) | Sambaによるファイル共有設定 |
+| [nfs-server](sfs-server/) | Nfsによるファイル共有設定 |
+| [apache-server](apache-server/) | httpdによるApacheサーバ設定 |
+| [mysql-server](mysql-server/) | mysqldによるDBサーバ設定 |
+| [php-server](php-server/) | phpサーバ設定 |
 | [zabbix](zabbix/) | Zabbixによる監視環境構築 |
 | [notes](notes/) | Linux基本コマンド・トラブル対応メモ |
 ---
