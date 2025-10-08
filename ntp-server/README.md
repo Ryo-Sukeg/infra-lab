@@ -1,41 +1,41 @@
-# NTP Server 構築記録
+# NTP Server 構築・検証記録
 
-## 構成概要
-| 項目 | 内容 |
-|------|------|
-| OS | AlmaLinux 9.6 |
-| サービス | chrony |
-| 役割 | NTPサーバ（時刻同期） |
-| クライアント | Ubuntu 24.04 / RHEL 9.6 |
+本リポジトリでは、`chrony` を使用した NTP サーバ構築および検証の手順を記録しています。  
+CentOS Stream / Ubuntu / AlmaLinux / RHEL のマルチ環境で動作確認を行いました。
 
 ---
 
-## 手順
+## ファイル構成
 
-### 1. chronyのインストール
-```bash
-sudo dnf install -y chrony
+| ファイル名 | 内容 |
+|-------------|------|
+| [NTP_Server_Setup.md](./NTP_Server_Setup.md) | 構築手順まとめ |
+| [NTP_Server_Verification.md](./NTP_Server_Verification.md) | 検証結果まとめ |
 
-### 2. 設定ファイル編集
-/etc/chrony.conf に以下を設定：
-allow 192.168.56.0/24
-local stratum 10
+---
 
-### 3. サービス起動
-sudo systemctl enable --now chronyd
-sudo systemctl status chronyd
+## 環境概要
+| 項目 | 内容 |
+|------|------|
+| OS構成 | CentOS Stream 9.6 / Ubuntu 24.04 / AlmaLinux 9.6 / RHEL 9.6 |
+| 使用サービス | chrony |
+| 構築目的 | NTPサーバの構築と冗長化検証 |
+| 構成図 | master (CentOS) ⇔ slave (Ubuntu) ⇔ client (Alma/RHEL) |
 
-### 4. ファイアウォール許可
-sudo firewall-cmd --permanent --add-service=ntp
-sudo firewall-cmd --reload
+## ネットワーク構成図
 
-### 検証結果
-chronyc sources -v
-210 Number of sources = 2
-MS Name/IP address         Stratum Poll Reach LastRx Last sample
-===============================================================================
-^* ntp.nict.jp                   1   6   377    34  +123us[ +234us] +/-  2ms
+```mermaid
+graph LR
+    A[🌐 NTP上位サーバ<br>ntp.nict.jp / ntp.jst.mfeed.ad.jp] --> B[🖥️ CentOS Stream 9.6<br>192.168.56.101<br>Master NTP Server]
+    A --> C[🖥️ Ubuntu 24.04<br>192.168.56.102<br>Slave NTP Server]
+    B --> D[💻 AlmaLinux 9.6<br>192.168.56.103<br>Client]
+    C --> D
+    B --> E[💻 RHEL 9.6<br>192.168.56.104<br>Client]
+    C --> E
+---
 
-学び・注意点
-・NTPクライアントの許可範囲は /etc/chrony.conf の allow で指定。
-・仮想環境では時刻差が出やすいので、同期確認を習慣化する。
+## 学びポイント
+- `chrony` は `ntpd` より軽量で仮想環境との相性が良い  
+- フェイルオーバー時も自動で再同期し安定した時刻精度を維持  
+- `allow` ディレクティブで許可範囲を限定しセキュリティ確保  
+- 仮想環境での時刻ズレ対策として定期同期を推奨  
