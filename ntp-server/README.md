@@ -13,7 +13,7 @@ CentOS Stream / Ubuntu / AlmaLinux / RHEL のマルチ環境で動作確認を�
 |------|------|
 | OS構成 | CentOS Stream 9.6 / Ubuntu 24.04 / AlmaLinux 9.6 / RHEL 9.6 |
 | 使用サービス | chrony |
-| 構築目的 | NTPサーバの構築と冗長化検証 |
+| 構築目的 | NTPサーバの構築と冗長化の検証 |
 | 構成図 | master (CentOS) ⇔ slave (Ubuntu) ⇔ client (Alma/RHEL) |
 
 ### ポイント
