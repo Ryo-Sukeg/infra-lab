@@ -1,6 +1,6 @@
 # Infra Lab - Ryo's IT Infrastructure Portfolio 
 このリポジトリは サーバ構築・運用の学習記録として作成しました。  
-個人検証環境で構築した各種サービス（DNS / NTP / Samba / LAMP環境 / Zabbixなど）の手順、設定、検証結果をまとめていきます。
+個人検証環境で構築した各種サービス（DNS / NTP / Samba / LAMP環境 / Zabbixなど）の構築手順、設定、検証結果をまとめていきます。
 
 ## 目的
 - Linuxサーバ構築・運用の実践スキルを身につける  
