@@ -2,15 +2,13 @@
 
 ## 1.NTPサーバ検証結果 (CentOS_Stream9.6)
 
-### `# chronyc sources`  
-```text
+### `# chronyc sources`  ```text
   MS Name/IP address         Stratum Poll Reach LastRx Last sample
   ===============================================================================  
   ^* ntp-b3.nict.go.jp             1   6    17     0    -62us[ -530us] +/- 4676us  
   ^- ntp2.jst.mfeed.ad.jp          2   6    17     1  +1156us[ +688us] +/-   29ms  
 ```
-### `# chronyc tracking`  
-```text
+### `# chronyc tracking`  ```text
   Reference ID    : 85F3EEA4 (ntp-b3.nict.go.jp)  
   Stratum         : 2  
   Ref time (UTC)  : Wed Oct 08 05:45:27 2025  
@@ -27,15 +25,13 @@
 ```
 ## 2. クライアント検証結果 (RHEL9.6)  
 
-### `# chronyc sources -v`  
-```text
+### `# chronyc sources -v`  ```text
   MS Name/IP address         Stratum Poll Reach LastRx Last sample  
   ===============================================================================  
   ^* Stream                        2   6    17     7   -640us[ -577us] +/- 6066us  
   ^+ Ubuntu24                      2   6    17     7   +653us[ +716us] +/- 5845us 
 ```
-### `# chronyc tracking`  
-```text
+### `# chronyc tracking`  ```text
   Reference ID    : C0A83866 (Ubuntu24)  
   Stratum         : 3  
   Ref time (UTC)  : Wed Oct 08 05:50:55 2025  
@@ -54,8 +50,7 @@
 
 ## Ubuntu (192.168.56.102) chronyd 停止時  
 
-### `# chronyc sources`  
-```text
+### `# chronyc sources`  ```text
   MS Name/IP address         Stratum Poll Reach LastRx Last sample  
   ===============================================================================  
   ^+ Stream                        2   7   377    10   -986us[ -986us] +/- 6666us  
@@ -63,8 +58,7 @@
 ```
 ## CentOS_Stream (192.168.56.101) chronyd 停止時  
 
-### `# chronyc sources`  
-```text
+### `# chronyc sources`  ```text
   MS Name/IP address         Stratum Poll Reach LastRx Last sample  
   ===============================================================================  
   ^* Stream                        2   7   377    91   -596us[ -986us] +/- 6666us  
