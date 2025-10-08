@@ -5,7 +5,7 @@
 ## 目的
 - Linuxサーバ構築・運用の実践スキルを身につける  
 - 手順書・設定・トラブル対応を体系的にまとめる  
-- サーバエンジニアとしてのポートフォリオとして整理  
+- 自己スキルの証明として整理  
 
 ## 構成一覧
   | ディレクトリ | 内容 |
@@ -32,11 +32,10 @@
   | バージョン管理 | Git for Windows v2.51.0 / GitHub |
 
 ## 今後の目標
-- 既存サーバの構築情報を順次アップロード
+- 自宅サーバの構築情報を順次アップロード  
+- Zabbixへの監視対象サービスの追加
 - 監視・ログ収集・バックアップの連携実験  
-- 各サービスを systemd / firewalld / SELinux まで正しく設定  
-- サーバ構築の自動化（Shellスクリプト化） 
-- CI/CD・Infrastructure as Code（IaC）への展開  
+- サーバ構築の一部自動化（Shellスクリプト化）
 
 <img width="1493" height="849" alt="image" src="https://github.com/user-attachments/assets/bff36017-aae3-4021-9f15-c5bb7cc082c1" />
 <img width="1919" height="617" alt="image" src="https://github.com/user-attachments/assets/e442a202-4192-42a8-8044-0e4ca95370a1" />
