@@ -20,4 +20,6 @@ CentOS Stream / Ubuntu / AlmaLinux / RHEL のマルチ環境で動作確認を�
 - chrony は ntpd より軽量で仮想環境と相性が良い  
 - フェイルオーバー時も自動で再同期し安定した時刻精度を維持  
 - allow ディレクティブで許可範囲を限定してセキュリティ確保  
-- 仮想環境での時刻ズレ対策として定期同期を推奨  
+- 仮想環境での時刻ズレ対策として定期同期を推奨
+
+ <img width="1491" height="787" alt="image" src="https://github.com/user-attachments/assets/4a59029c-80f7-42ba-9291-f9ee942e69bb" />
