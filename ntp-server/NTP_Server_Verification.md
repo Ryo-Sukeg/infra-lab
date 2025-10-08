@@ -1,17 +1,15 @@
-以下の内容のコマンドとその検証結果を等幅フォントにして欲しいです
-
-## NTP Server 検証結果記録
+# NTP Server 検証結果記録
 
 ## 1.NTPサーバ検証結果 (CentOS_Stream9.6)
 
-### `chronyc sources`  
+### `# chronyc sources`  
 ```text
   MS Name/IP address         Stratum Poll Reach LastRx Last sample
   ===============================================================================  
   ^* ntp-b3.nict.go.jp             1   6    17     0    -62us[ -530us] +/- 4676us  
   ^- ntp2.jst.mfeed.ad.jp          2   6    17     1  +1156us[ +688us] +/-   29ms  
 ```
-### `chronyc tracking`  
+### `# chronyc tracking`  
 ```text
   Reference ID    : 85F3EEA4 (ntp-b3.nict.go.jp)  
   Stratum         : 2  
@@ -29,14 +27,14 @@
 ```
 ## 2. クライアント検証結果 (RHEL9.6)  
 
-### `chronyc sources -v`  
+### `# chronyc sources -v`  
 ```text
   MS Name/IP address         Stratum Poll Reach LastRx Last sample  
   ===============================================================================  
   ^* Stream                        2   6    17     7   -640us[ -577us] +/- 6066us  
   ^+ Ubuntu24                      2   6    17     7   +653us[ +716us] +/- 5845us 
 ```
-### `chronyc tracking`  
+### `# chronyc tracking`  
 ```text
   Reference ID    : C0A83866 (Ubuntu24)  
   Stratum         : 3  
@@ -56,7 +54,7 @@
 
 ## Ubuntu (192.168.56.102) chronyd 停止時  
 
-### `chronyc sources`  
+### `# chronyc sources`  
 ```text
   MS Name/IP address         Stratum Poll Reach LastRx Last sample  
   ===============================================================================  
@@ -65,7 +63,7 @@
 ```
 ## CentOS_Stream (192.168.56.101) chronyd 停止時  
 
-### `chronyc sources`  
+### `# chronyc sources`  
 ```text
   MS Name/IP address         Stratum Poll Reach LastRx Last sample  
   ===============================================================================  
