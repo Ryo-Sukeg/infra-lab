@@ -38,4 +38,5 @@
 - サーバ構築の自動化（Shellスクリプト化） 
 - CI/CD・Infrastructure as Code（IaC）への展開  
 
-<img width="1488" height="848" alt="image" src="https://github.com/user-attachments/assets/f660e3a3-9ca3-4c43-b2ff-68a638e2731c" />
+<img width="1493" height="849" alt="image" src="https://github.com/user-attachments/assets/bff36017-aae3-4021-9f15-c5bb7cc082c1" />
+
