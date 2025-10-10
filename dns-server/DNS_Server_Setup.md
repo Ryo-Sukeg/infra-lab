@@ -3,16 +3,15 @@
 ## 構成概要
 | 項目 | 内容 |
 |------|------|
+| DNS | Master : CentOS Stream 9（192.168.56.101）/ Slave : Ubuntu 24.04（192.168.56.102）|
 | ドメイン | lab.lan |
-| マスターDNS | CentOS Stream 9.6（192.168.56.101） |
-| スレーブDNS | Ubuntu 24.04（192.168.56.102） |
-| クライアント | RHEL 9.6 / AlmaLinux 9.6 |
 | サービス | BIND9 |
 | 役割 | 内部向け正引き・逆引きDNSサーバ |
+| クライアント | RHEL 9.6 / AlmaLinux 9.6 |
 ---
 
 ## 手順
-### 1. マスターDNSサーバ構築 (CentOS Stream 9.6)  
+### 1. マスターDNSサーバ構築 (CentOS Stream 9)  
 1-1. BINDインストール
 ```
 sudo dnf install -y bind bind-utils
