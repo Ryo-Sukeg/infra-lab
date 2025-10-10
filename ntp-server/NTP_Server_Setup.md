@@ -11,12 +11,14 @@
 
 ## 手順
 ### 1. NTPサーバ設定
-1-1. chrony のインストール
-```
+1-1. chrony のインストール  
 Red Hat / CentOS 系
-  sudo dnf install -y chrony
+```
+sudo dnf install -y chrony
+```
 Debian / Ubuntu 系
-  sudo apt-get install -y chrony
+```
+sudo apt-get install -y chrony
 ```
 1-2. 設定ファイル編集
 /etc/chrony.conf に以下を設定 ( ※ Debian/Ubuntu系は /etc/chrony/chrony.conf )
