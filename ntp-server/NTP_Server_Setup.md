@@ -52,7 +52,7 @@
    sudo firewall-cmd --permanent --add-service=ntp
    sudo firewall-cmd --reload
 ```
-### 3. 学び・注意点
+### 3. 備考
 ・NTPクライアントの許可範囲は /etc/chrony.conf の allow で指定  
 ・iburst オプションはサービス開始時の初期同期を高速化する  
 ・設定変更後は sudo systemctl restart chronyd でサービス再起動  
