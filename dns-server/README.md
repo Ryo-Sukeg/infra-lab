@@ -4,8 +4,8 @@
 ### 構成情報  
 | 役割 | ホスト名 | O S | IPアドレス | 主なサービス |  
 |------|-----------|----|-------------|---------------|  
-| Master DNS | stream9.6 | CentOS Stream 9 | 192.168.56.101 | BIND (named) |  
-| Slave DNS | ubuntu24 | Ubuntu 24.04 | 192.168.56.102 | BIND (named) |  
+| DNS master | stream9.6 | CentOS Stream 9 | 192.168.56.101 | BIND (named) |  
+| DNS slave | ubuntu24 | Ubuntu 24.04 | 192.168.56.102 | BIND (named) |  
 | クライアント | rhel9.6 | RHEL 9.6 | 192.168.56.103 | dig / nslookup |  
 | クライアント | alma9.6 | AlmaLinux 9.6 | 192.168.56.104 | dig / nslookup |  
 
