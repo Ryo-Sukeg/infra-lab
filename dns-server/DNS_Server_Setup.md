@@ -32,6 +32,7 @@ options {
 
     directory "/var/named";
 };
+
 # ↓ このDNSサーバが管理するドメインや逆引きゾーンを定義
 zone "lab.lan" IN {
     type master;
