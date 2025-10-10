@@ -6,8 +6,8 @@
 |------|-----------|----|-------------|---------------|  
 | Master DNS | stream9.6 | CentOS Stream 9 | 192.168.56.101 | BIND (named) |  
 | Slave DNS | ubuntu24 | Ubuntu 24.04 | 192.168.56.102 | BIND (named) |  
-| Client 1 | rhel9.6 | RHEL 9.6 | 192.168.56.103 | dig / nslookup |  
-| Client 2 | alma9.6 | AlmaLinux 9.6 | 192.168.56.104 | dig / nslookup |  
+| クライアント | rhel9.6 | RHEL 9.6 | 192.168.56.103 | dig / nslookup |  
+| クライアント | alma9.6 | AlmaLinux 9.6 | 192.168.56.104 | dig / nslookup |  
 
 ### ファイル構成  
 | ファイル名	| 内  容 |  
