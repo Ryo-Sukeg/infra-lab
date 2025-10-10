@@ -149,7 +149,7 @@ dnf install -y bind-utils
 ```
 ### 4. 備考
 - 両DNSが正引き・逆引きともに応答することを確認
-- Serial 番号を上げるとスレーブへ自動転送され、番号は通常、日付（年、月、日）と連番（nn）で構成される
+- Serial 番号を上げるとスレーブへ自動転送される、番号は通常 日付（年、月、日）と 連番（nn）で構成される
 - BINDのゾーン定義は /etc/named.conf か /etc/bind/named.conf.local に分けると分かりやすい
 - ファイアウォールはUDP/TCPの53番ポートを許可
 - スレーブが同期しない場合は /var/log/messages か /var/log/syslog を確認  
