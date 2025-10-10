@@ -22,23 +22,27 @@ sudo vi /etc/named.conf
 ```
 以下のように編集（変更・追記部分のみ抜粋）：
 ```
-listen-on port 53 { 127.0.0.1; 192.168.56.101; };
-allow-query     { localhost; 192.168.56.0/24; };
+options {
+    listen-on port 53 { any; };
+    allow-query     { any; };
+    recursion yes;
 
-recursion yes;
+    forwarders { 8.8.8.8; 1.1.1.1; };
+    forward only;
+
+    directory "/var/named";
+};
 
 zone "lab.lan" IN {
     type master;
-    file "/var/named/lab.lan.zone";
-    allow-update { none; };
+    file "lab.lan.zone";
+    allow-transfer { 192.168.56.102; };
 };
 
 zone "56.168.192.in-addr.arpa" IN {
     type master;
-    file "/var/named/56.168.192.rev";
-    allow-update { none; };
-};
-
+    file "56.168.192.zone";
+    allow-transfer { 192.168.56.102; };
 };
 ```
 1-3. ゾーンファイル作成
@@ -48,38 +52,40 @@ sudo vi /var/named/lab.lan.zone
 内容：
 ```
 $TTL 86400
-@   IN  SOA master.lab.lan. root.lab.lan. (
-        2025100701  ; Serial
-        3600        ; Refresh
-        900         ; Retry
-        604800      ; Expire
-        86400 )     ; Minimum
-    IN  NS  master.lab.lan.
-    IN  NS  slave.lab.lan.
-master  IN  A   192.168.56.101
-slave   IN  A   192.168.56.102
-client1 IN  A   192.168.56.103
-client2 IN  A   192.168.56.104
+@   IN  SOA     dns.lab.lan. root.lab.lan. (
+        2025100601 ; Serial（変更ごとに+1）
+        3600       ; Refresh
+        1800       ; Retry
+        604800     ; Expire
+        86400 )    ; Minimum TTL
+
+@       IN  NS      dns.lab.lan.
+dns     IN  A       192.168.56.101
+stream  IN  A       192.168.56.101
+ubuntu  IN  A       192.168.56.102
+rhel    IN  A       192.168.56.103
+alma    IN  A       192.168.56.104
 ```
 逆引きゾーン：
 ```
-sudo vi /var/named/56.168.192.rev
+sudo vi /var/named/56.168.192.zone
 ```
 内容：
 ```
 $TTL 86400
-@   IN  SOA master.lab.lan. root.lab.lan. (
-        2025100701
+$TTL 86400
+@   IN  SOA     dns.lab.lan. root.lab.lan. (
+        2025100501
         3600
-        900
+        1800
         604800
         86400 )
-    IN  NS  master.lab.lan.
-    IN  NS  slave.lab.lan.
-101 IN PTR master.lab.lan.
-102 IN PTR slave.lab.lan.
-103 IN PTR client1.lab.lan.
-104 IN PTR client2.lab.lan.
+
+@       IN  NS      dns.lab.lan.
+101     IN  PTR     stream.lab.lan.
+102     IN  PTR     ubuntu.lab.lan.
+103     IN  PTR     rhel.lab.lan.
+104     IN  PTR     alma.lab.lan.
 ```
 1-4. firewalld・SELinux設定
 ```
@@ -93,7 +99,7 @@ sudo systemctl enable --now named
 sudo systemctl status named
 sudo named-checkconf
 sudo named-checkzone lab.lan /var/named/lab.lan.zone
-sudo named-checkzone 56.168.192.in-addr.arpa /var/named/56.168.192.rev
+sudo named-checkzone 56.168.192.in-addr.arpa /var/named/56.168.192.zone
 ```
 ### 2. スレーブDNSサーバ構築 (Ubuntu 24.04)
 2-1. BINDインストール
@@ -105,13 +111,13 @@ sudo apt install -y bind9 bind9-utils
 zone "lab.lan" {
     type slave;
     masters { 192.168.56.101; };
-    file "/var/lib/bind/lab.lan.zone";
+    file "/var/cache/bind/lab.lan.zone";
 };
 
 zone "56.168.192.in-addr.arpa" {
     type slave;
     masters { 192.168.56.101; };
-    file "/var/lib/bind/56.168.192.rev";
+    file "/var/cache/bind/56.168.192.in-addr.arpa.zone";
 };
 ```
 2-3. 起動・確認
