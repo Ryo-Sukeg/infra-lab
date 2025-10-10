@@ -140,7 +140,7 @@ sudo nmcli con up <connection>  # 再接続
 ```
 3-2. 動作確認
 ```
-dig slave.lab.lan
+dig ubuntu.lab.lan
 dig -x 192.168.56.101
 ```
 クライアント側で dig コマンドが使えない場合は以下をインストール
