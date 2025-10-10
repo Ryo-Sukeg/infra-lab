@@ -23,8 +23,8 @@ sudo vi /etc/named.conf
 以下のように編集（変更・追記部分のみ抜粋）：
 ```
 options {
-    listen-on port 53 { any; };
-    allow-query     { any; };
+    listen-on port 53 { 127.0.0.1; 192.168.56.101; };
+    allow-query     { localhost; 192.168.56.0/24; };
     recursion yes;
 
     forwarders { 8.8.8.8; 1.1.1.1; };
