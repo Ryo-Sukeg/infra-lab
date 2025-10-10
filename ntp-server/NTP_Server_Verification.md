@@ -1,6 +1,6 @@
 # NTP Server 検証結果記録
 
-## 1. NTPサーバ検証結果 (CentOS_Stream9.6)
+## 1. NTPサーバ検証結果 (CentOS_Stream9)
 
 ### `# chronyc sources`  
 ```text
