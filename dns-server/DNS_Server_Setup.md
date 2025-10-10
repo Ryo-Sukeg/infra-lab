@@ -25,9 +25,9 @@ sudo vi /etc/named.conf
 options {
     listen-on port 53 { 127.0.0.1; 192.168.56.101; };    # どのNICでDNSを受けるか
     allow-query     { localhost; 192.168.56.0/24; };    # どのクライアントからの問い合わせを許可するか
-    recursion yes;    # 自分が知らないドメインを外部に聞きに行くか
+    recursion yes;    # 自己解決できないドメインを外部に聞きに行くか
 
-    forwarders { 8.8.8.8; 1.1.1.1; };    # 外部DNSのIP
+    forwarders { 8.8.8.8; 1.1.1.1; };    # recursion yes 時に問合わせる外部DNSのIP
     forward only;
 
     directory "/var/named";
@@ -131,9 +131,9 @@ ls -l /var/lib/bind/
 ### 3. クライアント設定 (RHEL/Alma)
 3-1. 参照するDNSサーバの指定　※ nmtui コマンドでも可
 ```
-sudo nmcli device    # インタフェースの名前や種別・状態・接続を表示
+sudo nmcli device    # インタフェース名・種別・状態・接続を表示
 sudo nmcli connection modify IF名 ipv4.dns "192.168.56.101"    # DNS追加
-sudo nmcli connection modify IF名 ipv4.ignore-auto-dns yes    # DHCPからDNS自動取得するのを無効にする
+sudo nmcli connection modify IF名 ipv4.ignore-auto-dns yes    # DHCPからDNSを自動取得するのを無効にする
 sudo systemctl restart NetworkManager    # 設定反映
 cat /etc/resolv.conf    # 変更反映を確認
 ```
