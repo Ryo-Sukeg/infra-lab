@@ -12,8 +12,8 @@
 ### ファイル構成  
 | ファイル名	| 内  容 |  
 |-----------|----|  
-| build_guide.md	| BINDの構築手順 ( master/slave設定 ) |  
-| verification.md | digコマンドを使った検証結果記録 |  
+| DNS_Server_Setup.md	| BINDの構築手順 ( master/slave設定 ) |  
+| DNS_Server_verification.md | digコマンドを使った検証結果記録 |  
 
 ### 目的    
 ローカルネットワーク内にBINDを利用したDNSサーバを構築し、内部ドメイン名解決を行える環境を作成する。
