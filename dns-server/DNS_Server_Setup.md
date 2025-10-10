@@ -128,7 +128,7 @@ ls -l /var/lib/bind/
 ```
 → ゾーンファイルが自動転送されていれば成功
 ### 3. クライアント設定 (RHEL/Alma)
-3-1. 参照するDNSサーバの指定　※ 以下内容は nmtui コマンドでも設定できます
+3-1. 参照するDNSサーバの指定　※ nmtui コマンドでも可
 ```
 sudo nmcli con show           # 接続名確認
 sudo nmcli con edit <接続IF名>
