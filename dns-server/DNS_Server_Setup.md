@@ -122,7 +122,6 @@ sudo systemctl status bind9
 ls -l /var/lib/bind/
 ```
 → ゾーンファイルが自動転送されていれば成功
-```
 ### 3. クライアント設定 (RHEL/Alma)
 3-1. /etc/resolv.conf を編集
 ```
