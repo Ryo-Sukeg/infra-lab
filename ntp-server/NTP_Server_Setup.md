@@ -3,7 +3,7 @@
 ## 構成概要
 | 項目 | 内容 |
 |------|------|
-| NTPサーバ | master : CentOS\_Stream 9.6 / slave : Ubuntu 24.04 |
+| NTPサーバ | master : CentOS\_Stream 9 / slave : Ubuntu 24.04 |
 | サービス | chrony |
 | 役割 | NTPサーバ（時刻同期） |
 | クライアント | AlmaLinux 9.6 / RHEL 9.6 |
