@@ -23,20 +23,20 @@ sudo vi /etc/named.conf
 以下のように編集（変更・追記部分のみ抜粋）：
 ```
 options {
-    listen-on port 53 { 127.0.0.1; 192.168.56.101; };
-    allow-query     { localhost; 192.168.56.0/24; };
-    recursion yes;
+    listen-on port 53 { 127.0.0.1; 192.168.56.101; };    # どのNICでDNSを受けるか
+    allow-query     { localhost; 192.168.56.0/24; };    # どのクライアントからの問い合わせを許可するか
+    recursion yes;    # 自分が知らないドメインを外部に聞きに行くか
 
-    forwarders { 8.8.8.8; 1.1.1.1; };
+    forwarders { 8.8.8.8; 1.1.1.1; };    # 外部DNSのIP
     forward only;
 
     directory "/var/named";
 };
-
+# ↓ このDNSサーバが管理するドメインや逆引きゾーンを定義
 zone "lab.lan" IN {
     type master;
     file "lab.lan.zone";
-    allow-transfer { 192.168.56.102; };
+    allow-transfer { 192.168.56.102; };    # 転送を許可する slave DNS server
 };
 
 zone "56.168.192.in-addr.arpa" IN {
@@ -66,7 +66,7 @@ ubuntu  IN  A       192.168.56.102
 rhel    IN  A       192.168.56.103
 alma    IN  A       192.168.56.104
 ```
-逆引きゾーン：
+逆引きゾーン：    ※ IPアドレス → ホスト名 の変換
 ```
 sudo vi /var/named/56.168.192.zone
 ```
