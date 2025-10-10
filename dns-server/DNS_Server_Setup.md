@@ -131,13 +131,11 @@ ls -l /var/lib/bind/
 ### 3. クライアント設定 (RHEL/Alma)
 3-1. 参照するDNSサーバの指定　※ nmtui コマンドでも可
 ```
-sudo nmcli con show           # 接続名確認
-sudo nmcli con edit <接続IF名>
-> set ipv4.dns "192.168.56.101 8.8.8.8"
-> save
-> quit
-sudo nmcli con up <connection>  # 再接続
-
+sudo nmcli device    # インタフェースの名前や種別, 状態, 接続を表示
+sudo nmcli connection modify IF名 ipv4.dns "192.168.56.101 8.8.8.8"    # DNS追加
+sudo nmcli connection modify IF名 ipv4.ignore-auto-dns yes    # DHCPからDNS自動取得するのを無効にする
+sudo systemctl restart NetworkManager    # 設定反映
+cat /etc/resolv.conf    # 変更反映を確認
 ```
 3-2. 動作確認
 ```
