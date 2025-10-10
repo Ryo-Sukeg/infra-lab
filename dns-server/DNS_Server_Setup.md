@@ -5,7 +5,7 @@
 |------|------|
 | DNS | Master : CentOS Stream 9（192.168.56.101）/ Slave : Ubuntu 24.04（192.168.56.102）|
 | ドメイン | lab.lan |
-| サービス | BIND 9.16.23-RH (Extended Support Version) |
+| サービス / Version | BIND / 9.16.23-RH (Extended Support Version) |
 | 役割 | 内部向け正引き・逆引きDNSサーバ |
 | クライアント | RHEL 9.6 / AlmaLinux 9.6 |
 ---
