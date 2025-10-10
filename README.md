@@ -25,7 +25,7 @@
   |------|------|
   | ホストOS | Windows 11 |
   | 仮想化環境 | VirtualBox 7.1.10 |
-  | ゲストOS | CentOS_Stream9.6 / Ubuntu24.04 / RHEL9.6 / AlmaLinux9.6 |
+  | ゲストOS | CentOS_Stream9 / Ubuntu24.04 / RHEL9.6 / AlmaLinux9.6 |
   | IPアドレス | 192.168.56.101 / 192.168.56.102 / 192.168.56.103 /  192.168.56.104 |
   | ネットワークアダプタ | NAT + Host-Only |
   | エディタ | SakuraEditor |
