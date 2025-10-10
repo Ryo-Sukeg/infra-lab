@@ -16,7 +16,7 @@ CentOS Stream / Ubuntu / AlmaLinux / RHEL のマルチ環境で動作確認を�
 | 構築目的 | NTPサーバの構築と冗長化の検証 |
 | 構成図 | master (CentOS) ⇔ slave (Ubuntu) ⇔ client (Alma/RHEL) |
 
-### ポイント
+### 備考
 - chrony は ntpd より軽量で仮想環境と相性が良い  
 - フェイルオーバー時も自動で再同期し安定した時刻精度を維持  
 - allow ディレクティブで許可範囲を限定してセキュリティ確保  
