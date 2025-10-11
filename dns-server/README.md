@@ -2,7 +2,7 @@
 本リポジトリでは `BIND9` を使用した DNS サーバ構築および検証の手順を記録しています。
 
 ### 構成情報  
-| 役割 | ホスト名 | O S | IPアドレス | 主なサービス |  
+| 役 割 | ホスト名 | O S | IPアドレス | 主なサービス |  
 |------|-----------|----|-------------|---------------|  
 | DNS master | stream9.6 | CentOS Stream 9 | 192.168.56.101 | BIND (named) |  
 | DNS slave | ubuntu24 | Ubuntu 24.04 | 192.168.56.102 | BIND (named) |  
@@ -10,7 +10,7 @@
 | クライアント | alma9.6 | AlmaLinux 9.6 | 192.168.56.104 | dig / nslookup |  
 
 ### ファイル構成  
-| ファイル名	| 内  容 |  
+| ファイル名	| 内 容 |  
 |-----------|----|  
 | DNS_Server_Setup.md	| BINDの構築手順 ( master/slave設定 ) |  
 | DNS_Server_verification.md | digコマンドを使った検証結果記録 |  
