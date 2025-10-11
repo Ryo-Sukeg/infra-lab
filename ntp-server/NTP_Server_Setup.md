@@ -1,7 +1,7 @@
 # NTP Server 構築手順記録
 
 ## 構成概要
-| 項目 | 内容 |
+| 項 目 | 内 容 |
 |------|------|
 | NTPサーバ | master : CentOS\_Stream 9 / slave : Ubuntu 24.04 |
 | サービス | chrony |
