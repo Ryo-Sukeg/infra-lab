@@ -128,7 +128,7 @@ sudo systemctl status bind9
 ls -l /var/cache/bind/    // 成功していれば lab.lan.zone や 56.168.192.in-addr.arpa.zone が生成されているはず
 ```
 → ゾーンファイルが自動転送されていれば成功  
-※ なければプライマリ側のログ確認 `sudo journalctl -u named -f`、Ubuntu側は `sudo journalctl -u bind9 -f`
+※ なければプライマリ側のログ確認 `sudo journalctl -u named -f`
 ### 3. クライアント設定 (RHEL/Alma)
 3-1. 参照するDNSサーバの指定　※ nmtui コマンドでも可
 ```
