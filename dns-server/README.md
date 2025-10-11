@@ -25,4 +25,4 @@
 - Firewall は dns (TCP/UDP 53) を許可する  
 - 検証環境は VirtualBox + NATネットワークで構築  
 
-<img width="1665" height="724" alt="image" src="https://github.com/user-attachments/assets/d5668df7-d73f-41a4-9647-a261ecc7d6ee" />
+<img width="1662" height="761" alt="image" src="https://github.com/user-attachments/assets/2d8fd891-3181-4276-82d5-0df6ccb9cf6f" />
