@@ -186,7 +186,7 @@ alma.lab.lan.           86400   IN      A       192.168.56.104
 ```
 外部ドメイン検索
 ```
-sudo dig amazon
+dig amazon
 
 ; <<>> DiG 9.16.23-RH <<>> amazon
 ;; global options: +cmd
