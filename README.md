@@ -13,7 +13,7 @@
   | [dns-server](dns-server/) | BINDを使ったDNSサーバ構築と動作確認 |
   | [ntp-server](ntp-server/) | chronyによるNTPサーバ設定 |
   | [samba-server](samba-server/) | Sambaによるファイル共有設定 |
-  | [nfs-server](sfs-server/) | Nfsによるファイル共有設定 |
+  | [nfs-server](sfs-server/) | NFSによるファイル共有設定 |
   | [apache-server](apache-server/) | httpdによるApacheサーバ設定 |
   | [mysql-server](mysql-server/) | mysqldによるDBサーバ設定 |
   | [php-server](php-server/) | phpサーバ設定 |
