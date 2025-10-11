@@ -1,7 +1,7 @@
 # DNS Server 構築手順記録
 
 ## 構成概要
-| 項目 | 内容 |
+| 項 目 | 内 容 |
 |------|------|
 | DNS | Master : CentOS Stream 9（192.168.56.101）/ Slave : Ubuntu 24.04（192.168.56.102）|
 | ドメイン | lab.lan |
