@@ -215,7 +215,7 @@ amazon.                 60      IN      SOA     dns1.nic.amazon. hostmaster.nomi
 - フェイルオーバー確認時は systemctl stop named → dig で確認する
 - キャッシュの影響を避けるため、テスト時は dig +trace や rndc flush が有効
 
-補足
+### 補足
 - dig +short を使うと結果だけを簡潔に表示できる
 - host stream.lab.lan でも名前解決の確認が可能
 - BINDログの監視には journalctl -u named -f が便利
