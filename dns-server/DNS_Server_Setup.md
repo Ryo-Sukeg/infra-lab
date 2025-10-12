@@ -102,7 +102,7 @@ sudo named-checkconf
 sudo named-checkzone lab.lan /var/named/lab.lan.zone
 sudo named-checkzone 56.168.192.in-addr.arpa /var/named/56.168.192.zone
 ```
-### 2. スレーブDNSサーバ構築 (Ubuntu 24.04)
+### 2. スレーブDNSサーバ構築 (Ubuntu 24.04.3)
 2-1. BINDインストール
 ```
 sudo apt install -y bind9 bind9-utils
