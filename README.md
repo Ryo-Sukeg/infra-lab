@@ -18,7 +18,6 @@
   | [mysql-server](mysql-server/) | mysqldによるDBサーバ設定 |
   | [php-server](php-server/) | phpサーバ設定 |
   | [zabbix](zabbix/) | Zabbixによる監視環境構築 |
-  | [notes](notes/) | Linux基本コマンド・トラブル対応メモ |
 
 ## 学習環境
   | 項 目 | 内 容 |
