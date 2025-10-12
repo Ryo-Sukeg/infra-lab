@@ -28,7 +28,7 @@
   | ゲストOS | CentOS_Stream 9 / Ubuntu 24.04 / RHEL 9.6 / AlmaLinux 9.6 |
   | IPアドレス | 192.168.56.101 / 192.168.56.102 / 192.168.56.103 /  192.168.56.104 |
   | ネットワークアダプタ | NAT + Host-Only |
-  | エディタ | SakuraEditor |
+  | エディタ | サクラエディタ Ver.2.4.2.6048 |
   | バージョン管理 | Git for Windows v2.51.0 / GitHub |
 
 ## 今後の目標
