@@ -11,9 +11,9 @@
 | 役 割 | ホスト名 | O S | IPアドレス | 主なサービス |  
 |------|-----------|----|-------------|---------------|  
 | NTPサーバ | stream9.6 | CentOS Stream 9 | 192.168.56.101 | chrony / BIND (named) |  
-| NTPサーバ | ubuntu24 | Ubuntu 24.04 | 192.168.56.102 | chrony / BIND (named) |  
+| NTPサーバ | ubuntu24 | Ubuntu 24.04.3 | 192.168.56.102 | chrony / BIND (named) |  
 | クライアント | rhel9.6 | RHEL 9.6 | 192.168.56.103 | samba / NFS |  
-| クライアント | alma9.6 | AlmaLinux 9.6 | 192.168.56.104 | LAMP / Zabbix | 
+| クライアント | alma9.6 | AlmaLinux 9.6 | 192.168.56.104 | LAMP環境 / Zabbix | 
 
 ### 備考
 - chrony は ntpd より軽量で仮想環境と相性が良い  
