@@ -1,5 +1,5 @@
 # NTP Server 構築・検証記録 
-本リポジトリでは `chrony` を使用した NTP サーバ構築および検証の手順を記録しています。  
+本リポジトリは `chrony` を使用した NTP サーバの構築手順と検証結果を記録しています。  
 CentOS Stream / Ubuntu / AlmaLinux / RHEL のマルチ環境で動作確認を行いました。
 
 ### ファイル構成
