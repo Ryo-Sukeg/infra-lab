@@ -1,19 +1,19 @@
 # DNS Server 構築・検証記録  
 本リポジトリでは `BIND9` を使用した DNS サーバ構築および検証の手順を記録しています。
 
-### 構成情報  
-| 役 割 | ホスト名 | O S | IPアドレス | 主なサービス |  
-|------|-----------|----|-------------|---------------|  
-| DNS master | stream9.6 | CentOS Stream 9 | 192.168.56.101 | BIND (named) |  
-| DNS slave | ubuntu24 | Ubuntu 24.04 | 192.168.56.102 | BIND (named) |  
-| クライアント | rhel9.6 | RHEL 9.6 | 192.168.56.103 | dig / nslookup |  
-| クライアント | alma9.6 | AlmaLinux 9.6 | 192.168.56.104 | dig / nslookup |  
-
 ### ファイル構成  
 | ファイル名	| 内 容 |  
 |-----------|----|  
-| DNS_Server_Setup.md	| BINDの構築手順 ( master/slave設定 ) |  
-| DNS_Server_verification.md | digコマンドを使った検証結果記録 |  
+| [DNS_Server_Setup.md](./DNS_Server_Setup.md) | BINDの構築手順 ( master/slave設定 ) |  
+| [DNS_Server_verification.md](./DNS_Server_Verification.md) | digコマンドを使った検証結果記録 |  
+
+### 構成情報  
+| 役 割 | ホスト名 | O S | IPアドレス | 主なサービス |  
+|------|-----------|----|-------------|---------------|  
+| DNS master | stream9.6 | CentOS Stream 9 | 192.168.56.101 | BIND (named) / chrony |  
+| DNS slave | ubuntu24 | Ubuntu 24.04 | 192.168.56.102 | BIND (named) / chrony |  
+| クライアント | rhel9.6 | RHEL 9.6 | 192.168.56.103 | samba / NFS |  
+| クライアント | alma9.6 | AlmaLinux 9.6 | 192.168.56.104 | LAMP / Zabbix |  
 
 ### 目的    
 ローカルネットワーク内にBINDを利用したDNSサーバを構築し、内部ドメイン名解決を行える環境を作成する。
