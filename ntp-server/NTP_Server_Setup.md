@@ -3,8 +3,8 @@
 ## 構成概要
 | 項 目 | 内 容 |
 |------|------|
-| NTPサーバ | master : CentOS\_Stream 9 / slave : Ubuntu 24.04 |
-| サービス | chrony |
+| NTPサーバ | CentOS_Stream 9 / Ubuntu 24.04.3 |
+| サービス | chronyc (chrony) version 4.6.1 |
 | 役割 | NTPサーバ（時刻同期） |
 | クライアント | AlmaLinux 9.6 / RHEL 9.6 |
 ---
