@@ -3,7 +3,7 @@
 ## 構成概要
 | 項 目 | 内 容 |
 |------|------|
-| DNS | Master : CentOS Stream 9（192.168.56.101）/ Slave : Ubuntu 24.04（192.168.56.102）|
+| DNS | Master : CentOS Stream 9（192.168.56.101）/ Slave : Ubuntu 24.04.3（192.168.56.102）|
 | ドメイン | lab.lan |
 | サービス / Version | BIND / 9.16.23-RH (Extended Support Version) |
 | 役割 | 内部向け正引き・逆引きDNSサーバ |
