@@ -68,6 +68,10 @@ sudo firewall-cmd --reload
 ・`RMS offset` の履歴をリセットしたい場合は Chrony を再起動  
 
 ### 4. 気になったコマンド
+バージョン確認
+```
+chronyc -v
+```
 タイムゾーンの確認・変更
 ```
 timedatectl status
