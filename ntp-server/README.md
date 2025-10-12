@@ -1,6 +1,6 @@
 # NTP Server 構築・検証記録 
 本リポジトリは `chrony` を使用した NTP サーバの構築手順と検証結果を記録しています。  
-CentOS Stream / Ubuntu / AlmaLinux / RHEL のマルチ環境で動作確認を行いました。
+NTPサーバを2台構築し冗長化の確認も行いました。
 
 ### ファイル構成
 | ファイル名 | 内 容 |
@@ -8,13 +8,13 @@ CentOS Stream / Ubuntu / AlmaLinux / RHEL のマルチ環境で動作確認を�
 | [NTP_Server_Setup.md](./NTP_Server_Setup.md) | 構築手順まとめ |
 | [NTP_Server_Verification.md](./NTP_Server_Verification.md) | 検証結果まとめ |
 
-### 環境概要
-| 項 目 | 内 容 |
-|------|------|
-| OS構成 | CentOS Stream 9.6 / Ubuntu 24.04 / AlmaLinux 9.6 / RHEL 9.6 |
-| 使用サービス | chrony |
-| 構築目的 | NTPサーバの構築と冗長化の検証 |
-| 構成図 | master (CentOS) ⇔ slave (Ubuntu) ⇔ client (Alma/RHEL) |
+### 構成情報  
+| 役 割 | ホスト名 | O S | IPアドレス | 主なサービス |  
+|------|-----------|----|-------------|---------------|  
+| NTPサーバ | stream9.6 | CentOS Stream 9 | 192.168.56.101 | chrony / BIND (named) |  
+| NTPサーバ | ubuntu24 | Ubuntu 24.04 | 192.168.56.102 | chrony / BIND (named) |  
+| クライアント | rhel9.6 | RHEL 9.6 | 192.168.56.103 | samba / NFS |  
+| クライアント | alma9.6 | AlmaLinux 9.6 | 192.168.56.104 | LAMP / Zabbix | 
 
 ### 備考
 - chrony は ntpd より軽量で仮想環境と相性が良い  
