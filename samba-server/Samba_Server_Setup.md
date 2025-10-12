@@ -6,7 +6,7 @@
 | 項 目 | 内 容 |
 |------|------|
 | Samba サーバ | RHEL 9.6 ( 192.168.56.103 ) |
-| サービス / Version | ※1 smbd , ※2 nmbd / Version 4.21.3 |
+| サービス / Version | smbd ※1 , nmbd ※2 / Version 4.21.3 |
 | 役割 | ファイル共有サーバ |
 | Linux クライアント | CentOS Stream 9 ( 192.168.56.101 ) / Ubuntu 24.04.3 ( 192.168.56.102 ) / AlmaLinux 9.6 ( 192.168.56.104 ) |
 | Windows クライアント | Windows 11 ( 172.100.21.x ) |
@@ -67,7 +67,7 @@ sudo systemctl status smb nmb
 Linux クライアント
 ```
 sudo mkdir -p /mnt/samba
-sudo mount -t cifs //192.168.56.103/share /mnt/samba -o username=sambauser,password=SambaPassword,vers=3.0
+sudo mount -t cifs //192.168.56.103/share /mnt/samba -o username=sambauser,password=SambaPass123,vers=3.0
 ```
 Windows クライアント
 エクスプローラで入力：
@@ -83,7 +83,7 @@ Sambaマウント設定
 .smbcred の例：
 ```
 username=sambauser
-password=SambaPass5566
+password=SambaPass123
 ```
 ### 3. NFSとの共存設定
 既存 /srv/samba/share を /etc/exports にも設定して NFS 共有
