@@ -1,6 +1,5 @@
 # DNS Server 構築・検証記録  
-本リポジトリは `BIND9` を使用した DNS サーバの構築手順と検証結果を記録しています。  
-DNSサーバは `Master Server` と `Slave Server` を構築し冗長化の確認も行っています。
+本リポジトリは `BIND9` を使用した DNS サーバの構築手順と検証結果を記録しています。DNSサーバは `Master Server` と `Slave Server` を構築し冗長化の確認も行っています。
 
 ### ファイル構成  
 | ファイル名	| 内 容 |  
