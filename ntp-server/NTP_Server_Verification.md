@@ -27,7 +27,7 @@
 ```
 ## 2. クライアント検証結果 (RHEL9.6)  
 
-### `# chronyc sources -v`  
+### `# chronyc sources`  
 ```text
   MS Name/IP address         Stratum Poll Reach LastRx Last sample  
   ===============================================================================  
