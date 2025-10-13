@@ -15,7 +15,7 @@ sudo systemctl status chronyd
 chronyc sources
 chronyc tracking
 ```
-出力詳細：
+出力結果：
 ```
 $ sudo systemctl status chronyd
 
@@ -74,7 +74,7 @@ sudo systemctl status chronyd
 chronyc sources
 chronyc tracking
 ```
-出力詳細：
+出力結果：
 ```
 $ sudo systemctl status chronyd
 
