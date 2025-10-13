@@ -19,9 +19,10 @@ stream.lab.lan（master DNS）
 sudo systemctl status named
 sudo rndc status
 ```
-出力例：
+出力詳細：
 ```
-sudo systemctl status named
+$ sudo systemctl status named
+
 ● named.service - Berkeley Internet Name Domain (DNS)
      Loaded: loaded (/usr/lib/systemd/system/named.service; enabled; preset: disabled)
      Active: active (running) since Fri 2025-10-10 16:54:56 JST; 1min 48s ago
@@ -44,8 +45,10 @@ sudo systemctl status named
 10月 10 16:54:56 Stream9.6 named[855]: managed-keys-zone: Key 20326 for zone . is now trusted (acceptance time>
 10月 10 16:54:56 Stream9.6 named[855]: managed-keys-zone: Key 38696 for zone . is now trusted (acceptance time>
 10月 10 16:54:57 Stream9.6 named[855]: listening on IPv6 interface enp0s3, fd17:625c:f037:2:a00:27ff:fe1c:1875>[
-------------------------------------------------------------------------------------------------------------------
-sudo rndc status
+```
+```
+$ sudo rndc status
+
 version: BIND 9.16.23-RH (Extended Support Version) <id:fde3b1f>
 running on Stream9.6: Linux x86_64 5.14.0-620.el9.x86_64 #1 SMP PREEMPT_DYNAMIC Fri Sep 26 01:13:23 UTC 2025
 boot time: Fri, 10 Oct 2025 07:54:55 GMT
@@ -70,9 +73,10 @@ ubuntu.lab.lan（slave DNS）
 sudo systemctl status named
 sudo tail -n 5 /var/log/syslog
 ```
-出力例：
+出力詳細：
 ```
-sudo systemctl status named
+$ sudo systemctl status named
+
 ● named.service - BIND Domain Name Server
      Loaded: loaded (/usr/lib/systemd/system/named.service; enabled; preset: enabled)
      Active: active (running) since Fri 2025-10-10 17:04:25 JST; 2min 40s ago
@@ -95,8 +99,10 @@ sudo systemctl status named
 10月 10 17:04:25 Ubuntu24 named[1283]: managed-keys-zone: Key 38696 for zone . is now trusted (acceptance >
 10月 10 17:04:26 Ubuntu24 named[1283]: listening on IPv6 interface enp0s3, fd17:625c:f037:2:f7ae:2c82:5f0c>
 10月 10 17:04:26 Ubuntu24 named[1283]: listening on IPv6 interface enp0s3, fd17:625c:f037:2:a00:27ff:fe05:>
-------------------------------------------------------------------------------------------------------------------
-sudo tail -n 5 /var/log/syslog
+```
+```
+$ sudo tail -n 5 /var/log/syslog
+
 2025-10-10T17:09:29.084710+09:00 Ubuntu24 systemd[1]: Started systemd-timedated.service - Time & Date Service.
 2025-10-10T17:09:59.121244+09:00 Ubuntu24 systemd[1]: systemd-timedated.service: Deactivated successfully.
 2025-10-10T17:10:01.469091+09:00 Ubuntu24 systemd[1]: Starting sysstat-collect.service - system activity accounting tool...
@@ -110,8 +116,10 @@ dig stream.lab.lan
 dig ubuntu.lab.lan
 dig -x 192.168.56.104
 ```
-出力例：
+出力詳細：
 ```
+$ dig stream.lab.lan
+
 ; <<>> DiG 9.16.23-RH <<>> stream.lab.lan
 ;; global options: +cmd
 ;; Got answer:
@@ -131,7 +139,10 @@ stream.lab.lan.         86400   IN      A       192.168.56.101
 ;; SERVER: 192.168.56.101#53(192.168.56.101)
 ;; WHEN: Sat Oct 11 12:58:35 JST 2025
 ;; MSG SIZE  rcvd: 87
--------------------------------------------------------------------------
+```
+```
+$ dig ubuntu.lab.lan
+
 ; <<>> DiG 9.16.23-RH <<>> ubuntu.lab.lan
 ;; global options: +cmd
 ;; Got answer:
@@ -151,7 +162,10 @@ ubuntu.lab.lan.         86400   IN      A       192.168.56.102
 ;; SERVER: 192.168.56.101#53(192.168.56.101)
 ;; WHEN: Sat Oct 11 13:00:04 JST 2025
 ;; MSG SIZE  rcvd: 87
--------------------------------------------------------------------------
+```
+```
+$ dig -x 192.168.56.104
+
 ; <<>> DiG 9.16.23-RH <<>> -x 192.168.56.104
 ;; global options: +cmd
 ;; Got answer:
@@ -181,8 +195,10 @@ sudo systemctl stop named
 # クライアントから確認
 dig rhel.lab.lan
 ```
-出力例：
+出力詳細：
 ```
+$ dig rhel.lab.lan
+
 ; <<>> DiG 9.16.23-RH <<>> rhel.lab.lan
 ;; global options: +cmd
 ;; Got answer:
@@ -211,8 +227,10 @@ sudo systemctl stop named
 # クライアントから確認
 dig alma.lab.lan
 ```
-出力例：
+出力詳細：
 ```
+$ dig alma.lab.lan
+
 ; <<>> DiG 9.16.23-RH <<>> alma.lab.lan
 ;; global options: +cmd
 ;; Got answer:
@@ -235,7 +253,7 @@ alma.lab.lan.           86400   IN      A       192.168.56.104
 ```
 外部ドメイン検索
 ```
-dig amazon
+$ dig amazon
 
 ; <<>> DiG 9.16.23-RH <<>> amazon
 ;; global options: +cmd
