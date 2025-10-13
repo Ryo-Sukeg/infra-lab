@@ -19,7 +19,7 @@ stream.lab.lan（master DNS）
 sudo systemctl status named
 sudo rndc status
 ```
-出力詳細：
+出力結果：
 ```
 $ sudo systemctl status named
 
@@ -73,7 +73,7 @@ ubuntu.lab.lan（slave DNS）
 sudo systemctl status named
 sudo tail -n 5 /var/log/syslog
 ```
-出力詳細：
+出力結果：
 ```
 $ sudo systemctl status named
 
@@ -116,7 +116,7 @@ dig stream.lab.lan
 dig ubuntu.lab.lan
 dig -x 192.168.56.104
 ```
-出力詳細：
+出力結果：
 ```
 $ dig stream.lab.lan
 
@@ -195,7 +195,7 @@ sudo systemctl stop named
 # クライアントから確認
 dig rhel.lab.lan
 ```
-出力詳細：
+出力結果：
 ```
 $ dig rhel.lab.lan
 
@@ -227,7 +227,7 @@ sudo systemctl stop named
 # クライアントから確認
 dig alma.lab.lan
 ```
-出力詳細：
+出力結果：
 ```
 $ dig alma.lab.lan
 
