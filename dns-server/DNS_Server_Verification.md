@@ -4,8 +4,8 @@
 
 | サーバ種別 | O S | ホスト名 | IPアドレス | 役 割 |
 |-------------|-----|-----------|-------------|------|
-| **DNS** | **CentOS Stream 9** | **stream.lab.lan** | **192.168.56.101** | **マスターサーバ** |
-| **DNS** | **Ubuntu 24.04.3** | **ubuntu.lab.lan** | **192.168.56.102** | **スレーブサーバ** |
+| **DNS** | CentOS Stream 9 | **stream.lab.lan** | **192.168.56.101** | **Master Server** |
+| **DNS** | Ubuntu 24.04.3 | **ubuntu.lab.lan** | **192.168.56.102** | **Slave Server** |
 | client | RHEL 9.6 | rhel.lab.lan | 192.168.56.103 | 正引き・逆引き確認 |
 | client | AlmaLinux 9.6 | alma.lab.lan| 192.168.56.104 | フェイルオーバーテスト |
 
