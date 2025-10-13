@@ -3,15 +3,15 @@
 ## 構成概要
 | 項 目 | 内 容 |
 |------|------|
-| DNSサーバ | Master : CentOS Stream 9 ( 192.168.56.101 ) / Slave : Ubuntu 24.04.3 ( 192.168.56.102 ) |
+| DNSサーバ | Master : CentOS Stream 9（192.168.56.101）/ Slave : Ubuntu 24.04.3（192.168.56.102）|
 | ドメイン | lab.lan |
 | サービス / Version | BIND / 9.16.23-RH ( Extended Support Version ) |
 | 役割 | 内部向け正引き・逆引きDNSサーバ |
-| クライアント | RHEL 9.6 ( 192.168.56.103 ) / AlmaLinux 9.6 ( 192.168.56.104 )|
+| クライアント | RHEL 9.6（192.168.56.103）/ AlmaLinux 9.6（192.168.56.104）|
 ---
 
 ## 手順
-### 1. マスターDNSサーバ構築 ( CentOS Stream 9 )  
+### 1. マスターDNSサーバ構築（CentOS Stream 9）  
 1-1. BINDインストール
 ```
 sudo dnf install -y bind bind-utils
@@ -20,7 +20,7 @@ sudo dnf install -y bind bind-utils
 ```
 sudo vi /etc/named.conf
 ```
-以下のように編集 ( 変更・追記部分のみ抜粋 )：
+以下のように編集（変更・追記部分のみ抜粋）：
 ```
 options {
     listen-on port 53 { 127.0.0.1; 192.168.56.101; };   // どのNICでDNSを受けるか
@@ -102,7 +102,7 @@ sudo named-checkconf
 sudo named-checkzone lab.lan /var/named/lab.lan.zone
 sudo named-checkzone 56.168.192.in-addr.arpa /var/named/56.168.192.zone
 ```
-### 2. スレーブDNSサーバ構築 ( Ubuntu 24.04.3 )
+### 2. スレーブDNSサーバ構築（Ubuntu 24.04.3）
 2-1. BINDインストール
 ```
 sudo apt install -y bind9 bind9-utils
@@ -129,7 +129,7 @@ ls -l /var/cache/bind/    // 成功していれば lab.lan.zone や 56.168.192.i
 ```
 → ゾーンファイルが自動転送されていれば成功  
 ※ なければプライマリ側のログ確認 `sudo journalctl -u named -f`
-### 3. クライアント設定 ( RHEL / Alma )
+### 3. クライアント設定（RHEL / Alma）
 3-1. 参照するDNSサーバの指定　※ nmtui コマンドでも可
 ```
 sudo nmcli device    // インタフェース名・種別・状態・接続を表示
