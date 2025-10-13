@@ -119,7 +119,7 @@ Windows クライアント（エクスプローラで入力）
 
 sudo vi /root/.smbcred
 
-# 下記 ---- 内の username と password がファイル内容
+# 下記 username と password がファイル内容
 ---------------------------------
 username=sambauser
 password=SambaPass123
