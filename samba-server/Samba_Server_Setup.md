@@ -1,15 +1,15 @@
-# Samba Server 構築手順 ( RHEL9.6 )
+# Samba Server 構築手順（RHEL9.6）
 
 本構成は RHEL9.6 上に Samba サーバを構築し、Windows および Linux クライアントからアクセスできるファイル共有サーバを実現しています。同一ディレクトリは NFS サーバでも公開されていますが、本ファイルでは **Samba の設定** のみ記載しています。  
 
 ## 構成概要
 | 項 目 | 内 容 |
 |------|------|
-| Samba サーバ | RHEL 9.6 ( 192.168.56.103 ) |
+| Samba サーバ | RHEL 9.6（192.168.56.103）|
 | サービス / Version | smbd ※1 , nmbd ※2 / Version 4.21.3 |
 | 役割 | ファイル共有サーバ |
-| Linux クライアント | CentOS Stream 9 ( 192.168.56.101 ) / Ubuntu 24.04.3 ( 192.168.56.102 ) / AlmaLinux 9.6 ( 192.168.56.104 ) |
-| Windows クライアント | Windows 11 ( 172.100.21.x /24 ) |
+| Linux クライアント | CentOS Stream 9（192.168.56.101）/ Ubuntu 24.04.3（192.168.56.102）/ AlmaLinux 9.6（192.168.56.104）|
+| Windows クライアント | Windows 11（172.100.21.x /24）|
 
 ※1 smbd : Windowsネットワークのクライアントに対しファイル共有やプリンタ共有のサービスを提供  
 ※2 nmbd : NetBIOSの名前解決を行うサービス、IPアドレスに対応するコンピュータ名を解決し他マシンを発見できるようにする
@@ -28,7 +28,7 @@ sudo chown -R nobody:nobody /srv/samba/share
 sudo chmod -R 0777 /srv/samba/share
 ```
 1-3. 設定ファイル編集  
-/etc/samba/smb.conf の末尾に以下を追加：    ※ 不要な共有 ( [homes], [printers] ) は # でコメントアウト
+/etc/samba/smb.conf の末尾に以下を追加：    ※ 不要な共有（ [homes], [printers] ）は # でコメントアウト
 ```
 [share]
     path = /srv/samba/share
@@ -53,7 +53,7 @@ sudo pdbedit -L		※ -Lオプション : 全ユーザアカウント一覧表示
 ```
 1-5. SELinux / Firewall 設定
 ```
-sudo setsebool -P samba_export_all_rw on    ※ -P オプション : persistent の意味で再起動後も設定を維持する
+sudo setsebool -P samba_export_all_rw on    ※ -P オプション : persistent の意味で再起動後も設定を維持
 sudo firewall-cmd --add-service=samba --permanent
 sudo firewall-cmd --reload
 ```
@@ -63,7 +63,11 @@ sudo systemctl enable --now smb nmb
 sudo systemctl status smb nmb
 ```
 ### 2. クライアント設定
-2-1. クライアント接続確認
+2-1. パッケージインストール
+```
+sudo dnf install -y samba-client cifs-utils
+```
+2-2. クライアント接続確認
 Linux クライアント
 ```
 sudo mkdir -p /mnt/samba
@@ -74,13 +78,12 @@ Windows クライアント
 ```
 \\192.168.56.103\share
 ```
-2-2. 永続化設定（任意）
-/etc/fstab に以下を追記：
-Sambaマウント設定
+2-3. 永続化設定（任意）
+/etc/fstab に以下を追記：    ※ 共有フォルダ自動マウント設定
 ```
 //192.168.56.103/share  /mnt/samba  cifs  credentials=/root/.smbcred,vers=3.0  0  0
 ```
-※ 上記の credentials で指定した `.smbcred` ファイルは root のみ読み書き可にして別途作成  
+上記の credentials で指定した `.smbcred` ファイルは root のみ読み書き可にして別途作成  
 `.smbcred` ファイル作成例：
 ```
 sudo vi /root/.smbcred
@@ -96,16 +99,18 @@ sudo chmod 600 /root/.smbcred
 ### 3. NFSとの共存設定
 既存 /srv/samba/share を /etc/exports にも設定して NFS 共有
 ```
-/srv/samba/share 192.168.56.0/24(rw,sync,no_root_squash)
+/srv/samba/share 192.168.56.0/24(rw,sync,root_squash)
 sudo exportfs -r
 ```
+※ root_squash : NFS サーバーに（ローカルを除く）リモート接続の root ユーザーが root 権限を持つことを阻止し、ユーザー ID nfsnobody を割り当てる。無効は no_root_squash、全リモートユーザー 抑制は all_squash を使用
 ### 4. 備考
-- CIFS : Microsoft が開発した SMB ( Server Message Block ) プロトコルを Windows 以外のシステムでも利用できるよう拡張したファイル共有プロトコル
+- CIFS : Microsoft が開発した SMB（Server Message Block）プロトコルを Windows 以外のシステムでも利用できるよう拡張したファイル共有プロトコル
 - /etc/fstab : OS起動時に自動マウントするファイルシステム情報を記述するファイル  
 記述順 : <ファイルシステム> <マウントポイント> <ファイルシステムの種類> <オプション> <ダンプフラグ> <fsck優先度>
-- pdbedit プログラム : SAM データベース ( Samba ユーザーのデータベース ) 内に保持されるユーザーアカウントを管理するために利用される
+- pdbedit プログラム : SAM データベース（Samba ユーザーのデータベース）内に保持されるユーザーアカウントを管理するために利用される
 - pdbedit : SAM データベースを管理。ユーザーアカウント追加・削除・変更・一覧表示・取り込み
 - smbpasswd : ユーザーの SMB パスワードを変更する
+- mount コマンドを使用し共有ファイルに接続確認後再起動、履歴から前回の mount コマンドを実行して共有フォルダに移動してもファイルが表示されない事象あり、再起動後に再度同じことを試して表示されることがありました（fstab に記載後は問題なし）
 
 ### 気になったコマンド
 samba バージョン確認
@@ -118,7 +123,11 @@ samba --version
 journalctl -b | grep mount
 dmesg | grep CIFS
 ```
-関連エラーメッセージ
+Linux クライアントからの samba サーバ接続確認（mount せずに使用可）
 ```
-journalctl -b
+# 共有一覧表示
+smbclient -L //192.168.56.103 -U sambauser
+
+# 接続
+smbclient //192.168.56.103/share -U sambauser
 ```
