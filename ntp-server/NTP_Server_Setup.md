@@ -3,10 +3,10 @@
 ## 構成概要
 | 項 目 | 内 容 |
 |------|------|
-| NTPサーバ | CentOS Stream 9 ( 192.168.56.101 ) / Ubuntu 24.04.3 ( 192.168.56.102 ) |
-| サービス / Version | chronyc (chrony) / version 4.6.1 |
-| 役割 | NTPサーバ（時刻同期） |
-| クライアント | RHEL 9.6 ( 192.168.56.103 ) / AlmaLinux 9.6 ( 192.168.56.104 ) |
+| NTPサーバ | CentOS Stream 9（192.168.56.101）/ Ubuntu 24.04.3（192.168.56.102）|
+| サービス / Version | chronyc（chrony）/ version 4.6.1 |
+| 役割 | NTPサーバ（時刻同期）|
+| クライアント | RHEL 9.6（192.168.56.103）/ AlmaLinux 9.6（192.168.56.104）|
 ---
 
 ## 手順
@@ -21,7 +21,7 @@ Debian / Ubuntu 系
 sudo apt-get install -y chrony
 ```
 1-2. 設定ファイル編集
-/etc/chrony.conf に以下を設定 ( ※ Debian/Ubuntu系は /etc/chrony/chrony.conf )
+/etc/chrony.conf に以下を設定（Debian系は /etc/chrony/chrony.conf）
 ```
 server ntp.nict.jp iburst
 server ntp.jst.mfeed.ad.jp iburst
@@ -82,7 +82,7 @@ sudo timedatectl set-timezone Asia/Tokyo
 date
 sudo chronyc makestep
 ```
-UDP/123番ポート開放確認 (簡易チェック)
+UDP/123番ポート開放確認（簡易チェック）
 ```
 nc -uvz 192.168.56.101 123
 ```
