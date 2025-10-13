@@ -38,6 +38,8 @@ sudo chown -R nobody:nobody /srv/samba/public
 sudo semanage fcontext -a -t samba_share_t "/srv/samba/public(/.*)?"
 sudo restorecon -Rv /srv/samba/public
 ```
+※ `semanage fcontext` と `restorecon` の説明は 4. 備考 の下の **SELinux の設定について** に記載
+
 1-3. 設定ファイル編集  
 /etc/samba/smb.conf の末尾に以下を追加：    ※ 不要な共有（ [homes], [printers] ）は # でコメントアウト
 ```
@@ -135,13 +137,14 @@ sudo chmod 600 /root/.smbcred
 ### 3. NFSとの共存設定
 samba サーバの既存 /srv/samba/share を /etc/exports にも設定して NFS 共有
 ```
-sudo /etc/exports
+sudo vi /etc/exports
 
-/srv/samba/share 192.168.56.0/24(rw,sync,root_squash)    ※ 追記
+/srv/samba/share 192.168.56.0/24(rw,sync,root_squash)    ※ exports ファイル内に追記
 
 sudo exportfs -r
 ```
 ※ root_squash : NFS サーバーに（ローカルを除く）リモート接続の root ユーザーが root 権限を持つことを阻止し、ユーザー ID nfsnobody を割り当てる。無効は no_root_squash、全リモートユーザー 抑制は all_squash を使用
+
 ### 4. 備考
 - CIFS : Microsoft が開発した SMB（Server Message Block）プロトコルを Windows 以外のシステムでも利用できるよう拡張したファイル共有プロトコル
 - /etc/fstab : OS起動時に自動マウントするファイルシステム情報を記述するファイル  
@@ -150,6 +153,15 @@ sudo exportfs -r
 - pdbedit : SAM データベースを管理。ユーザーアカウント追加・削除・変更・一覧表示・取り込み
 - smbpasswd : ユーザーの SMB パスワードを変更する
 - mount コマンドを使用し共有ファイルに接続確認後再起動、履歴から前回の mount コマンドを実行して共有フォルダに移動してもファイルが表示されない事象あり、再起動後に再度同じことを試して表示されることがありました（fstab に記載後は問題なし）
+
+### SELinux の設定について
+コンテキスト：SELinux を設定するための情報、プロセスやファイルに付与されるセキュリティラベルの情報で `ユーザー：ロール：タイプ：機密ラベル` という4つの要素で構成される（ls -Z で確認可）  
+semanage fcontext：永続的に SELinux コンテキストを変更する    
+-a オプション：新しいレコードを追加  
+-t オプション：タイプ指定  
+-l オプション：現在設定されているコンテキスト一覧  
+-d オプション：コンテキストのルール削除、ルールで使われている正規表現を指定  
+restorecon：変更した設定をファイルに反映させる
 
 ### 気になったコマンド
 samba バージョン確認
