@@ -80,8 +80,8 @@ Sambaマウント設定
 ```
 //192.168.56.103/share  /mnt/samba  cifs  credentials=/root/.smbcred,vers=3.0  0  0
 ```
-※ 上記の credentials で指定した `.smbcred` ファイルは rootのみ読み書き可にして別途作成
-.smbcredファイル作成例：
+※ 上記の credentials で指定した `.smbcred` ファイルは root のみ読み書き可にして別途作成  
+`.smbcred` ファイル作成例：
 ```
 sudo vi /root/.smbcred
 
@@ -100,10 +100,10 @@ sudo chmod 600 /root/.smbcred
 sudo exportfs -r
 ```
 ### 4. 備考
-- CIFS : Microsoft が開発した SMB ( Server Message Block ) プロトコルを Windows 以外のシステムでも利用できるように拡張したファイル共有プロトコル
+- CIFS : Microsoft が開発した SMB ( Server Message Block ) プロトコルを Windows 以外のシステムでも利用できるよう拡張したファイル共有プロトコル
 - /etc/fstab : OS起動時に自動マウントするファイルシステム情報を記述するファイル  
 記述順 : <ファイルシステム> <マウントポイント> <ファイルシステムの種類> <オプション> <ダンプフラグ> <fsck優先度>
-- pdbedit プログラム : SAM データベース (Samba ユーザーのデータベース) 内に保持されるユーザーアカウントを管理するために利用され root だけが実行できる
+- pdbedit プログラム : SAM データベース ( Samba ユーザーのデータベース ) 内に保持されるユーザーアカウントを管理するために利用される
 - pdbedit : SAM データベースを管理。ユーザーアカウント追加・削除・変更・一覧表示・取り込み
 - smbpasswd : ユーザーの SMB パスワードを変更する
 
