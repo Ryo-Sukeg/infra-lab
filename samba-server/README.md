@@ -21,3 +21,5 @@ Windows / Linux 両クライアントから同一共有ディレクトリへア�
 | ディレクトリ | 用途 | アクセス権限 | 備考 |
 |---------------|------|----------------|------|
 | /srv/samba/share | メイン共有フォルダ | 読み書き可（認証ユーザのみ）| Linux / Windows共通 |
+
+<img width="1572" height="882" alt="image" src="https://github.com/user-attachments/assets/24be3ec4-a61b-412b-9a58-f3d883a897ab" />
