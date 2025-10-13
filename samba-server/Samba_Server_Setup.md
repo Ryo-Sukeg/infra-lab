@@ -53,7 +53,7 @@ sudo pdbedit -L		※ -Lオプション : 全ユーザアカウント一覧表示
 ```
 1-5. SELinux / Firewall 設定
 ```
-sudo setsebool -P samba_export_all_rw on
+sudo setsebool -P samba_export_all_rw on    ※ -P オプション : persistent の意味で再起動後も設定を維持する
 sudo firewall-cmd --add-service=samba --permanent
 sudo firewall-cmd --reload
 ```
