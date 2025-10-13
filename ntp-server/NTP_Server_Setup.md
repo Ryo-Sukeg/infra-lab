@@ -12,12 +12,14 @@
 ## 手順
 ### 1. NTPサーバ設定
 1-1. chrony のインストール  
-Red Hat / CentOS 系
 ```
+# Red Hat 系
+
 sudo dnf install -y chrony
 ```
-Debian / Ubuntu 系
 ```
+# Debian 系
+
 sudo apt-get install -y chrony
 ```
 1-2. 設定ファイル編集
@@ -60,12 +62,12 @@ sudo firewall-cmd --permanent --add-service=ntp
 sudo firewall-cmd --reload
 ```
 ### 3. 備考
-・NTPクライアントの許可範囲は /etc/chrony.conf の allow で指定  
+・NTP クライアントの許可範囲は /etc/chrony.conf の allow で指定  
 ・iburst オプションはサービス開始時の初期同期を高速化する  
 ・設定変更後は sudo systemctl restart chronyd でサービス再起動  
-・NTPは UDP123番ポートを使用  
+・NTP は UDP123番ポートを使用  
 ・仮想環境では時刻差が出やすいため同期確認を行う  
-・`RMS offset` の履歴をリセットしたい場合は Chrony を再起動  
+・`RMS offset` の履歴をリセットしたい場合は chrony を再起動  
 
 ### 4. 気になったコマンド
 バージョン確認
