@@ -6,7 +6,7 @@
 |-------------|-----|-----------|-------------|------|
 | Linux client | CentOS Stream 9 | stream9.6 | 192.168.56.101 | 共有フォルダにtxtアップロード |
 | Linux client | Ubuntu 24.04.3 | ubuntu24 | 192.168.56.102 | 共有フォルダにtxtアップロード |
-| **samba** / NFS | **RHEL 9.6** | **rhel9.6** | **192.168.56.103** | **ファイル共有サーバ** |
+| **samba** / NFS | RHEL 9.6 | **rhel9.6** | **192.168.56.103** | **ファイル共有サーバ** |
 | Linux client | AlmaLinux 9.6 | alma9.6 | 192.168.56.104 | 検証テスト |
 | Windows client | Windows 11 | win11-test | 172.21.100.x/24 | 検証テスト |
 
