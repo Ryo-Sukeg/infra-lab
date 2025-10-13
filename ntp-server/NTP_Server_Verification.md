@@ -1,6 +1,6 @@
 # NTP Server 検証結果記録
 
-## 1. NTPサーバ検証結果 ( CentOS Stream 9 )
+## 1. NTPサーバ検証結果（CentOS Stream 9）
 
 ### `# chronyc sources`  
 ```text
@@ -25,7 +25,7 @@
   Update interval : 64.7 seconds  
   Leap status     : Normal  
 ```
-## 2. クライアント検証結果 ( RHEL 9.6 )  
+## 2. クライアント検証結果（RHEL 9.6）  
 
 ### `# chronyc sources`  
 ```text
@@ -50,9 +50,9 @@
   Update interval : 64.8 seconds  
   Leap status     : Normal  
 ```
-## 3. フェイルオーバーテスト ( RHEL 9.6 )  
+## 3. フェイルオーバーテスト（RHEL 9.6）  
 
-### Ubuntu (192.168.56.102) chronyd 停止時  
+### Ubuntu（192.168.56.102）chronyd 停止時  
 
 ### `# chronyc sources`  
 ```text
@@ -61,7 +61,7 @@
   ^+ Stream                        2   7   377    10   -986us[ -986us] +/- 6666us  
   ^* Ubuntu24                      2   7   377   204  +1697us[+1730us] +/- 8240us  
 ```
-### CentOS_Stream (192.168.56.101) chronyd 停止時  
+### CentOS_Stream（192.168.56.101）chronyd 停止時  
 
 ### `# chronyc sources`  
 ```text
