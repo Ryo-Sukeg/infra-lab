@@ -1,4 +1,4 @@
-# DNS Server 検証結果記録 (lab.lan)
+# DNS Server 検証結果記録
 
 ## 構成概要
 
@@ -13,7 +13,7 @@
 
 ### 1. マスター・スレーブの状態確認
 
-stream.lab.lan ( master DNS )
+stream.lab.lan（master DNS）
 
 ```bash
 sudo systemctl status named
@@ -21,11 +21,35 @@ sudo rndc status
 ```
 出力例：
 ```
-rndc status
+sudo systemctl status named
+● named.service - Berkeley Internet Name Domain (DNS)
+     Loaded: loaded (/usr/lib/systemd/system/named.service; enabled; preset: disabled)
+     Active: active (running) since Fri 2025-10-10 16:54:56 JST; 1min 48s ago
+    Process: 783 ExecStartPre=/bin/bash -c if [ ! "$DISABLE_ZONE_CHECKING" == "yes" ]; then /usr/sbin/named-ch>
+    Process: 841 ExecStart=/usr/sbin/named -u named -c ${NAMEDCONF} $OPTIONS (code=exited, status=0/SUCCESS)
+   Main PID: 855 (named)
+      Tasks: 10 (limit: 10651)
+     Memory: 31.3M (peak: 31.7M)
+        CPU: 430ms
+     CGroup: /system.slice/named.service
+             mq855 /usr/sbin/named -u named -c /etc/named.conf
+
+10月 10 16:54:56 Stream9.6 named[855]: zone 0.in-addr.arpa/IN: loaded serial 0
+10月 10 16:54:56 Stream9.6 named[855]: zone 1.0.0.127.in-addr.arpa/IN: loaded serial 0
+10月 10 16:54:56 Stream9.6 named[855]: zone 1.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.ip>
+10月 10 16:54:56 Stream9.6 named[855]: zone localhost.localdomain/IN: loaded serial 0
+10月 10 16:54:56 Stream9.6 named[855]: all zones loaded
+10月 10 16:54:56 Stream9.6 named[855]: running
+10月 10 16:54:56 Stream9.6 systemd[1]: Started Berkeley Internet Name Domain (DNS).
+10月 10 16:54:56 Stream9.6 named[855]: managed-keys-zone: Key 20326 for zone . is now trusted (acceptance time>
+10月 10 16:54:56 Stream9.6 named[855]: managed-keys-zone: Key 38696 for zone . is now trusted (acceptance time>
+10月 10 16:54:57 Stream9.6 named[855]: listening on IPv6 interface enp0s3, fd17:625c:f037:2:a00:27ff:fe1c:1875>[
+------------------------------------------------------------------------------------------------------------------
+sudo rndc status
 version: BIND 9.16.23-RH (Extended Support Version) <id:fde3b1f>
 running on Stream9.6: Linux x86_64 5.14.0-620.el9.x86_64 #1 SMP PREEMPT_DYNAMIC Fri Sep 26 01:13:23 UTC 2025
-boot time: Sat, 11 Oct 2025 03:43:56 GMT
-last configured: Sat, 11 Oct 2025 03:43:57 GMT
+boot time: Fri, 10 Oct 2025 07:54:55 GMT
+last configured: Fri, 10 Oct 2025 07:54:56 GMT
 configuration file: /etc/named.conf
 CPUs found: 2
 worker threads: 2
@@ -41,21 +65,46 @@ tcp clients: 0/150
 TCP high-water: 0
 server is up and running
 ```
-ubuntu.lab.lan ( slave DNS )
+ubuntu.lab.lan（slave DNS）
 ```
 sudo systemctl status named
 sudo tail -n 5 /var/log/syslog
 ```
 出力例：
 ```
-2025-10-11T12:54:43.410743+09:00 Ubuntu24 rtkit-daemon[1536]: Supervising 8 threads of 5 processes of 1 users.
-2025-10-11T12:54:52.820420+09:00 Ubuntu24 PackageKit: daemon quit
-2025-10-11T12:54:52.842837+09:00 Ubuntu24 systemd[1]: packagekit.service: Deactivated successfully.
-2025-10-11T12:55:01.373844+09:00 Ubuntu24 CRON[2306]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
-2025-10-11T12:55:21.147014+09:00 Ubuntu24 systemd[1502]: launchpadlib-cache-clean.service - Clean up old files in the Launchpadlib cache was skipped because of an unmet condition check (ConditionPathExists=/var/lib/gdm3/.launchpadlib/api.launchpad.net/cache).
+sudo systemctl status named
+● named.service - BIND Domain Name Server
+     Loaded: loaded (/usr/lib/systemd/system/named.service; enabled; preset: enabled)
+     Active: active (running) since Fri 2025-10-10 17:04:25 JST; 2min 40s ago
+       Docs: man:named(8)
+   Main PID: 1283 (named)
+     Status: "running"
+      Tasks: 8 (limit: 2216)
+     Memory: 28.5M (peak: 28.9M)
+        CPU: 536ms
+     CGroup: /system.slice/named.service
+             mq1283 /usr/sbin/named -f -u bind
+
+10月 10 17:04:25 Ubuntu24 named[1283]: network unreachable resolving './NS/IN': 2001:500:2f::f#53
+10月 10 17:04:25 Ubuntu24 named[1283]: network unreachable resolving './NS/IN': 2001:500:2d::d#53
+10月 10 17:04:25 Ubuntu24 named[1283]: network unreachable resolving './NS/IN': 2001:500:9f::42#53
+10月 10 17:04:25 Ubuntu24 named[1283]: network unreachable resolving './NS/IN': 2001:7fd::1#53
+10月 10 17:04:25 Ubuntu24 named[1283]: network unreachable resolving './NS/IN': 2001:500:2::c#53
+10月 10 17:04:25 Ubuntu24 named[1283]: network unreachable resolving './NS/IN': 2001:500:a8::e#53
+10月 10 17:04:25 Ubuntu24 named[1283]: managed-keys-zone: Key 20326 for zone . is now trusted (acceptance >
+10月 10 17:04:25 Ubuntu24 named[1283]: managed-keys-zone: Key 38696 for zone . is now trusted (acceptance >
+10月 10 17:04:26 Ubuntu24 named[1283]: listening on IPv6 interface enp0s3, fd17:625c:f037:2:f7ae:2c82:5f0c>
+10月 10 17:04:26 Ubuntu24 named[1283]: listening on IPv6 interface enp0s3, fd17:625c:f037:2:a00:27ff:fe05:>
+------------------------------------------------------------------------------------------------------------------
+sudo tail -n 5 /var/log/syslog
+2025-10-10T17:09:29.084710+09:00 Ubuntu24 systemd[1]: Started systemd-timedated.service - Time & Date Service.
+2025-10-10T17:09:59.121244+09:00 Ubuntu24 systemd[1]: systemd-timedated.service: Deactivated successfully.
+2025-10-10T17:10:01.469091+09:00 Ubuntu24 systemd[1]: Starting sysstat-collect.service - system activity accounting tool...
+2025-10-10T17:10:01.562118+09:00 Ubuntu24 systemd[1]: sysstat-collect.service: Deactivated successfully.
+2025-10-10T17:10:01.564048+09:00 Ubuntu24 systemd[1]: Finished sysstat-collect.service - system activity accounting tool.
 ```
 ### 2. 正引き・逆引き確認
-クライアント（ RHEL9.6 ）
+クライアント（RHEL9.6）
 ```
 dig stream.lab.lan
 dig ubuntu.lab.lan
