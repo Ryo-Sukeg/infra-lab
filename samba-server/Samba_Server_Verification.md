@@ -111,13 +111,16 @@ $ ls -l /mnt/samba/alma_test.txt
 エクスプローラ：\\192.168.56.103\public
 ```
 アクセス後、共有フォルダにファイル作成・削除が可能であることを確認  
-※ LinuxDNS の FQDN 反映方法は本ページ下側に記載
+※ LinuxDNS の FQDN 反映方法は `DNS Server 構築手順記録` レポジトリの下側 `Windows で Linux DNSサーバの FQDN を反映させる` に記載
 
 ### 3. SELinux / Firewall 動作確認  
 
 3-1. SELinuxブール値確認
 ```
 sudo getsebool -a | grep samba
+```
+出力結果：
+```
 samba_enable_home_dirs --> off
 samba_export_all_rw --> on
 samba_export_all_ro --> off
