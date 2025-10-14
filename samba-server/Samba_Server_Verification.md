@@ -67,7 +67,7 @@ $ sudo systemctl status smb nmb
 
 ### 2. クライアントからのアクセス確認
 
-2-1. Linuxクライアントでの検証 (AlmaLinux 9.6)
+2-1. Linux クライアントでの検証 (AlmaLinux 9.6)
 
 共有フォルダのマウント
 ```bash
@@ -98,7 +98,7 @@ $ sudo touch /mnt/samba/alma_test.txt
 $ ls -l /mnt/samba/alma_test.txt
 -rwxr-xr-x. 1 root root 0 10月 14 14:04 /mnt/samba/alma_test.txt
 ```
-2-2. Windowsクライアントでの検証（Windows 11）
+2-2. Windows クライアントでの検証（Windows 11）
 
 ネットワークアクセス確認　※ Windows のエクスプローラに入力して確認
 ```
@@ -113,7 +113,7 @@ $ ls -l /mnt/samba/alma_test.txt
 アクセス後、共有フォルダにファイル作成・削除が可能であることを確認  
 ※ LinuxDNS の FQDN 反映方法は `DNS Server 構築手順記録` レポジトリの下側 `Windows で Linux DNSサーバの FQDN を反映させる` に記載
 
-### 3. SELinux / Firewall 動作確認  
+### 3. SELinux / Firewall 動作確認（Samba Server）  
 
 3-1. SELinuxブール値確認
 ```
@@ -121,25 +121,36 @@ sudo getsebool -a | grep samba
 ```
 出力結果：
 ```
-samba_enable_home_dirs --> off
-samba_export_all_rw --> on
+$ sudo getsebool -a | grep samba
+samba_create_home_dirs --> off
+samba_domain_controller --> off
+samba_enable_home_dirs --> on
 samba_export_all_ro --> off
+samba_export_all_rw --> on
+samba_load_libgfapi --> off
+samba_portmapper --> off
+samba_run_unconfined --> off
+samba_share_fusefs --> off
+samba_share_nfs --> off
+sanlock_use_samba --> off
+tmpreaper_use_samba --> off
+use_samba_home_dirs --> off
+virt_use_samba --> off
 ```
 3-2. ファイアウォール設定
 ```
 sudo firewall-cmd --list-all | grep services
-services: dhcpv6-client mdns samba ssh
 ```
-3-3. 確認結果
-- SELinux有効状態で書き込み可
-- UDP/TCP 445, 139 ポート開放済み
-- DNS名アクセス正常（NetBIOS不要）
-
-### 4. 検証まとめ
-| 項 目 | 結果 |
+出力結果：
+```
+$ sudo firewall-cmd --list-all | grep service
+services: cockpit dhcpv6-client mountd nfs ntp rpc-bind samba ssh
+```
+### 3. 検証結果まとめ
+| 項 目 | 結 果 |
 |------|------|
-| Linuxクライアントからの接続	| 正常（認証 / guest共にOK）|
+| Linuxクライアントからの接続	| 正常（認証あり・認証なし：共に問題なし）|
 | Windowsクライアントからの接続	| 正常（エクスプローラ経由で確認）|
-| SELinux有効状態でのアクセス	| 書き込み可能 |
+| SELinux有効状態でのアクセス	| 認証あり・認証なし：共に書き込み可 |
 | ファイアウォール設定 | 正常（sambaサービス有効）|
 | DNS解決・名前解決 | 正常（lab.lan ドメイン動作）|
