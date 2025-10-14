@@ -4,10 +4,10 @@
 
 | サーバ種別 | O S | FQDN | IPアドレス | 役 割 |
 |-------------|-----|-----------|-------------|------|
-| Linux client | CentOS Stream 9 | stream.lab.lam | 192.168.56.101 | 共有フォルダにtxtアップロード |
-| Linux client | Ubuntu 24.04.3 | ubuntu.lab.lam | 192.168.56.102 | 共有フォルダにtxtアップロード |
-| **samba** / NFS | RHEL 9.6 | **rhel.lab.lam** | **192.168.56.103** | **ファイル共有サーバ** |
-| Linux client | AlmaLinux 9.6 | alma.lab.lam | 192.168.56.104 | 検証テスト |
+| Linux client | CentOS Stream 9 | stream.lab.lan | 192.168.56.101 | 共有フォルダにtxtアップロード |
+| Linux client | Ubuntu 24.04.3 | ubuntu.lab.lan | 192.168.56.102 | 共有フォルダにtxtアップロード |
+| **samba** / NFS | RHEL 9.6 | **rhel.lab.lan** | **192.168.56.103** | **ファイル共有サーバ** |
+| Linux client | AlmaLinux 9.6 | alma.lab.lan | 192.168.56.104 | 検証テスト |
 | Windows client | Windows 11 | win11-test | 172.21.100.x/24 | 検証テスト |
 
 ---
@@ -103,12 +103,12 @@ $ ls -l /mnt/samba/alma_test.txt
 ネットワークアクセス確認　※ Windows のエクスプローラに入力して確認
 ```
 # 認証あり共有フォルダ  
-エクスプローラ：\\192.168.56.103\share  
+エクスプローラ：\\rhel.lab.lan\share  
 ユーザ名：sambauser  
 パスワード：********
 
 # 認証なし共有フォルダ  
-エクスプローラ：\\192.168.56.103\public
+エクスプローラ：\\rhel.lab.lan\public
 ```
 アクセス後、共有フォルダにファイル作成・削除が可能であることを確認  
 ※ LinuxDNS の FQDN 反映方法は `DNS Server 構築手順記録` レポジトリの下側 `Windows で Linux DNSサーバの FQDN を反映させる` に記載
