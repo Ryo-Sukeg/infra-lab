@@ -10,10 +10,10 @@
 ### 構成情報  
 | 役 割 | ホスト名 | O S | IPアドレス | 主なサービス |  
 |------|-----------|----|-------------|---------------|  
-| **DNS master** | **stream9.6** | CentOS Stream 9 | **192.168.56.101** | **BIND（named）/ chrony** |  
-| **DNS slave** | **ubuntu24** | Ubuntu 24.04.3 | **192.168.56.102** | **BIND（named）/ chrony** |  
-| クライアント | rhel9.6 | RHEL 9.6 | 192.168.56.103 | samba / NFS |  
-| クライアント | alma9.6 | AlmaLinux 9.6 | 192.168.56.104 | LAMP環境 / Zabbix |  
+| **DNS master** | **stream** | CentOS Stream 9 | **192.168.56.101** | **BIND（named）/ chrony** |  
+| **DNS slave** | **ubuntu** | Ubuntu 24.04.3 | **192.168.56.102** | **BIND（named）/ chrony** |  
+| クライアント | rhel | RHEL 9.6 | 192.168.56.103 | samba / NFS |  
+| クライアント | alma | AlmaLinux 9.6 | 192.168.56.104 | LAMP環境 / Zabbix |  
 
 ### 目的    
 ローカルネットワーク内にBINDを利用したDNSサーバを構築し、内部ドメイン名解決を行える環境を作成する。
