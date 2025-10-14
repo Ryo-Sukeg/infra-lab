@@ -38,7 +38,7 @@ sudo chown -R nobody:nobody /srv/samba/public
 sudo semanage fcontext -a -t samba_share_t "/srv/samba/public(/.*)?"
 sudo restorecon -Rv /srv/samba/public
 ```
-※ `semanage fcontext` と `restorecon` の説明は 4. 備考 の下の **SELinux の設定について** に記載
+※ `semanage fcontext` と `restorecon` は 4. 備考 の下の **SELinux の設定について** に記載
 
 1-3. 設定ファイル編集  
 /etc/samba/smb.conf の末尾に以下を追加：    ※ 不要な共有（ [homes], [printers] ）は # でコメントアウト
