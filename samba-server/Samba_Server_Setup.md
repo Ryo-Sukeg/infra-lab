@@ -182,3 +182,15 @@ smbclient -L //192.168.56.103 -U sambauser
 # 接続
 smbclient //192.168.56.103/share -U sambauser
 ```
+全共有ディレクトリを読み書き可能でエクスポート
+```
+samba_export_all_rw --> on
+```
+samba がポートマッパーを使用する設定、ポートマッパーは主に NFS などの他サービスで使用されるため NFS 共有と連携する場合に有効にする
+```
+samba_portmapper --> on
+```
+samba を NFS 共有として利用できるようにする、samba 共有を NFS としてエクスポートできる
+```
+samba_share_nfs --> on
+```
