@@ -4,10 +4,10 @@
 
 | サーバ種別 | O S | ホスト名 | IPアドレス | 役 割 |
 |-------------|-----|-----------|-------------|------|
-| NTP | CentOS Stream 9 | stream.lab.lan | 192.168.56.101 | 時刻同期 |
-| NTP | Ubuntu 24.04.3 | ubuntu.lab.lan | 192.168.56.102 | 時刻同期 |
-| client | RHEL 9.6 | rhel.lab.lan | 192.168.56.103 |      - |
-| client | AlmaLinux 9.6 | alma.lab.lan| 192.168.56.104 | フェイルオーバーテスト |
+| NTP | CentOS Stream 9 | Stream | 192.168.56.101 | 時刻同期 |
+| NTP | Ubuntu 24.04.3 | Ubuntu24 | 192.168.56.102 | 時刻同期 |
+| client | RHEL 9.6 | rhel9.6 | 192.168.56.103 |      - |
+| client | AlmaLinux 9.6 | alma9.6| 192.168.56.104 | フェイルオーバーテスト |
 ---
 ### 1. NTPサーバの状態確認・検証結果（CentOS Stream 9）
 ```
