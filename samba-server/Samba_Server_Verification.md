@@ -8,7 +8,7 @@
 | Linux client | Ubuntu 24.04.3 | ubuntu.lab.lan | 192.168.56.102 | 共有フォルダにtxtアップロード |
 | **samba** / NFS | RHEL 9.6 | **rhel.lab.lan** | **192.168.56.103** | **ファイル共有サーバ** |
 | Linux client | AlmaLinux 9.6 | alma.lab.lan | 192.168.56.104 | 検証テスト |
-| Windows client | Windows 11 | win11-test | 172.21.100.x/24 | 検証テスト |
+| Windows client | Windows 11 |   - | 172.21.100.x/24 | 検証テスト |
 
 ---
 
