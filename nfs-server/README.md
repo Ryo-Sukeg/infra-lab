@@ -14,10 +14,10 @@
 ### 構成情報  
 | 役 割 | ホスト名 | O S | IPアドレス | 備 考 |
 |------|---------|----|-------------|------|
-| Linux クライアント | stream9.6 | Stream 9 | 192.168.56.101 | DNS master / NTPサーバ |
-| Linux クライアント | ubuntu24 | Ubuntu 24.04.3 | 192.168.56.102 | DNS slave / NTPサーバ |
-| Samba / NFS サーバ | rhel9.6 | RHEL 9.6 | 192.168.56.103 | NFS共有と同一ディレクトリ利用 |
-| Linux クライアント | alma9.6 | AlmaLinux 9.6 | 192.168.56.104 | LAMP環境 / Zabbix |
+| Linux クライアント | stream | Stream 9 | 192.168.56.101 | DNS master / NTPサーバ |
+| Linux クライアント | ubuntu | Ubuntu 24.04.3 | 192.168.56.102 | DNS slave / NTPサーバ |
+| Samba / *NFS* サーバ | *rhel* | RHEL 9.6 | *192.168.56.103* | Samba共有と同一ディレクトリ利用 |
+| Linux クライアント | alma | AlmaLinux 9.6 | 192.168.56.104 | LAMP環境 / Zabbix |
 | Windows クライアント | win11-test | Windows 11 | 172.21.100.x | 共有アクセス確認用 |
 
 ### 共有ディレクトリ構成  
