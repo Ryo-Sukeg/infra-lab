@@ -17,7 +17,7 @@ Windows / Linux 両クライアントから同一共有ディレクトリへア�
 | 権限管理 | ACL（Windows互換） | UNIXパーミッション |
 | 通信効率 | やや重い | 軽量・高速 |
 | 主な用途 | Windowsクライアント用共有 | Linuxサーバ間連携 |
-| 備 考 | Active Directory連携可能 | HAクラスタや仮想環境で安定稼働 |
+| 備 考 | Active Directory連携可能 | HAクラスタや仮想環境で安定稼働、firewall・IP 制御、Kerberos 認証追加可能 |
 
 ### 構成情報  
 | 役 割 | ホスト名 | O S | IPアドレス | 備 考 |
