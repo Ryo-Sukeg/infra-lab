@@ -1,6 +1,17 @@
 # Samba Server 構成概要（RHEL9.6） 
-本リポジトリは `Samba` サーバの構築手順と検証結果を記録しています。
+本構成では Windows と Linux の混在環境を想定し、ファイルサーバとして Samba サーバと NFS サーバの両方を運用しています。  
+本リポジトリは **Samba** サーバの構築手順と検証結果を記録しています。
 Windows / Linux 両クライアントから同一共有ディレクトリへアクセス可能な構成にしています。
+
+### 特徴比較
+| 項目 | Samba | NFS |
+|------|--------|-----|
+| 対応OS | Windows / macOS / Linux | Linux / UNIX |
+| 認証方式 | ユーザ名＋パスワード（SMB認証） | UID / GID（UNIX 標準認証） |
+| 権限管理 | ACL（Windows互換） | UNIXパーミッション |
+| 通信効率 | やや重い | 軽量・高速 |
+| 主な用途 | Windowsクライアント用共有 | Linuxサーバ間連携 |
+| 備 考 | Active Directory連携可能 | HAクラスタや仮想環境で安定稼働 |
 
 ### ファイル構成  
 | ファイル名 | 内 容 |
@@ -13,7 +24,7 @@ Windows / Linux 両クライアントから同一共有ディレクトリへア�
 |------|---------|----|-------------|------|
 | Linux クライアント | stream | Stream 9 | 192.168.56.101 | DNS master / NTPサーバ |
 | Linux クライアント | ubuntu | Ubuntu 24.04.3 | 192.168.56.102 | DNS slave / NTPサーバ |
-| **Samba** / NFS サーバ | **rhel** | RHEL 9.6 | **192.168.56.103** | NFS共有と同一ディレクトリ利用 |
+| **Samba** / NFS サーバ | **rhel** | RHEL 9.6 | **192.168.56.103** | Windows・Linux 共有ディレクトリ利用 |
 | Linux クライアント | alma | AlmaLinux 9.6 | 192.168.56.104 | LAMP環境 / Zabbix |
 | Windows クライアント | win11 | Windows 11 | 172.21.100.x | 共有アクセス確認用 |
 
