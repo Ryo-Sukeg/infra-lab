@@ -24,15 +24,15 @@ Windows / Linux 両クライアントから同一共有ディレクトリへア�
 |------|---------|----|-------------|------|
 | Linux クライアント | stream | Stream 9 | 192.168.56.101 | DNS master / NTPサーバ |
 | Linux クライアント | ubuntu | Ubuntu 24.04.3 | 192.168.56.102 | DNS slave / NTPサーバ |
-| **Samba** / NFS サーバ | **rhel** | RHEL 9.6 | **192.168.56.103** | Windows・Linux 共有ディレクトリ利用 |
+| **Samba** / NFS サーバ | **rhel** | RHEL 9.6 | **192.168.56.103** | **Windows・Linux 共有** / Linux 共有 |
 | Linux クライアント | alma | AlmaLinux 9.6 | 192.168.56.104 | LAMP環境 / Zabbix |
 | Windows クライアント | win11 | Windows 11 | 172.21.100.x | 共有アクセス確認用 |
 
 ### 共有ディレクトリ構成  
 | ディレクトリ | 用途 | アクセス権限 | 備考 |
 |---------------|------|----------------|------|
-| /mnt/samba/share | メイン共有フォルダ | 読み書き可（認証ユーザのみ）| Linux / Windows共通 |
-| /mnt/public | 共有フォルダ | 読み書き可（全ユーザ） | Linux / Windows共通 |
+| /mnt/samba/share | メイン共有フォルダ | 読み書き可（認証ユーザのみ）| Linux・Windows共有 |
+| /mnt/public | 共有フォルダ | 読み書き可（全ユーザ） | Linux・Windows共有 |
 
 
 <img width="1781" height="853" alt="image" src="https://github.com/user-attachments/assets/ebb5239b-e15f-4d0d-a32f-889a5e3abebe" />
