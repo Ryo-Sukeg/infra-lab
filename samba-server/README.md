@@ -3,8 +3,14 @@
 本リポジトリは **Samba** サーバの構築手順と検証結果を記録しています。
 Windows / Linux 両クライアントから同一共有ディレクトリへアクセス可能な構成にしています。
 
+### ファイル構成  
+| ファイル名 | 内 容 |
+|-------------|------|
+| [Samba_Server_Setup.md](./Samba_Server_Setup.md) | Samba サーバ構築手順 |
+| [Samba_Server_Verification.md](./Samba_Server_Verification.md) | 検証結果（接続確認・動作確認） |
+
 ### 特徴比較
-| 項目 | Samba | NFS |
+| 項 目 | Samba | NFS |
 |------|--------|-----|
 | 対応OS | Windows / macOS / Linux | Linux / UNIX |
 | 認証方式 | ユーザ名＋パスワード（SMB認証） | UID / GID（UNIX 標準認証）、IP制御 |
@@ -12,12 +18,6 @@ Windows / Linux 両クライアントから同一共有ディレクトリへア�
 | 通信効率 | やや重い | 軽量・高速 |
 | 主な用途 | Windowsクライアント用共有 | Linuxサーバ間連携 |
 | 備 考 | Active Directory連携可能 | HAクラスタや仮想環境で安定稼働 |
-
-### ファイル構成  
-| ファイル名 | 内 容 |
-|-------------|------|
-| [Samba_Server_Setup.md](./Samba_Server_Setup.md) | Samba サーバ構築手順 |
-| [Samba_Server_Verification.md](./Samba_Server_Verification.md) | 検証結果（接続確認・動作確認） |
 
 ### 構成情報  
 | 役 割 | ホスト名 | O S | IPアドレス | 備 考 |
@@ -29,7 +29,7 @@ Windows / Linux 両クライアントから同一共有ディレクトリへア�
 | Windows クライアント | win11 | Windows 11 | 172.21.100.x | 共有アクセス確認用 |
 
 ### 共有ディレクトリ構成  
-| ディレクトリ | 用途 | アクセス権限 | 備考 |
+| ディレクトリ | 用 途 | アクセス権限 | 備 考 |
 |---------------|------|----------------|------|
 | /mnt/samba/share | メイン共有フォルダ | 読み書き可（認証ユーザのみ）| Linux・Windows共有 |
 | /mnt/public | 共有フォルダ | 読み書き可（全ユーザ） | Linux・Windows共有 |
