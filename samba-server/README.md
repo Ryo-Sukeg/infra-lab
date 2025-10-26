@@ -7,7 +7,7 @@ Windows / Linux 両クライアントから同一共有ディレクトリへア�
 | 項目 | Samba | NFS |
 |------|--------|-----|
 | 対応OS | Windows / macOS / Linux | Linux / UNIX |
-| 認証方式 | ユーザ名＋パスワード（SMB認証） | UID / GID（UNIX 標準認証） |
+| 認証方式 | ユーザ名＋パスワード（SMB認証） | UID / GID（UNIX 標準認証）、IP制御 |
 | 権限管理 | ACL（Windows互換） | UNIXパーミッション |
 | 通信効率 | やや重い | 軽量・高速 |
 | 主な用途 | Windowsクライアント用共有 | Linuxサーバ間連携 |
