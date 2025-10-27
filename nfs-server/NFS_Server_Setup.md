@@ -46,19 +46,18 @@ sudo chown -R root:root /srv/nfs/system
 /srv/nfs/share 192.168.56.0/24(rw,sync,root_squash)
 /srv/nfs/system 192.168.56.103(rw,sync,root_squash)
 ```
-ro：読み取り専用（公開用フォルダ向け）  
-sync：書き込み時に同期、データを確実にディスクへ書き込んでから応答  
-root_squash：クライアント root を匿名ユーザ nobody に置き換え（権限昇格防止）  
-no_subtree_check：サブツリーチェック無効化で転送高速化（必要に応じて追加）  
+↑ NFS サーバで公開するディレクトリ情報を記載。左から "共有ディレクトリのパス　アクセス可能なネットワーク(マウントオプション)"  
+ro：読み取り専用（公開用フォルダ向け）。デフォルト  
+sync：書き込み時に同期、データを確実にディスクへ書き込んでから応答。デフォルト  
+root_squash：クライアント root を匿名ユーザ nobody に置き換え（権限昇格防止）。デフォルト  
+all_squash：全アクセスを匿名ユーザに置き換え  
+no_subtree_check：サブツリーチェック無効化で転送高速化  
 
 1-4. 設定反映と確認  
 エクスポート反映・確認（一覧）
 ```
-sudo exportfs -rv
-```
-マウント状態確認
-```
-sudo showmount -e
+sudo exportfs -r
+sudo exportfs -v
 ```
 1-5. サービス起動設定・状態確認
 ```
@@ -81,7 +80,7 @@ sudo firewall-cmd --permanent --add-service=rpc-bind
 sudo firewall-cmd --reload
 
 # 現在の設定確認
-sudo firewall-cmd --list-all --zone=public
+sudo firewall-cmd --list-all
 ```
 1-7. SELinux 設定  
 有効でも読み書きできるようブール値を設定
@@ -145,7 +144,7 @@ df -hT | grep nfs
 - Samba ディレクトリと共存させる場合の注意点    
 Samba が同一ディレクトリを提供する場合、ファイル所有者 / パーミッションと SELinux コンテキストが一致していることを確認する。
 例：/srv/nfs/share を Samba の share と同一にする場合、Samba 用に chown と semanage を適切に設定する。  
-また、Samba は SMB / CIFS（ポート445/139）、NFS は RPC 系のポート群（2049 など）を使用するためポート競合は基本的に起きない。
+また、Samba は SMB / CIFS（ポート445/139）、NFS は RPC 系のポート群（2049 など）を使用するためポート競合は基本的に起きないが、ディレクトリ共存は、ファイルロック競合、属性管理の不整合、SELinux コンテキスト問題などのトラブル発生の可能性があるとのこと。
 
 - nfs-mountd（rpc.mountd）について  
 NFS サーバ上で動作するデーモン、NFS クライアントからのマウント要求を処理してアクセス制御を行う。NFSv4 はプロトコルの仕組み変更のためクライアントとの通信に nfs-mountd は使用していない。しかし、NFSv2 や NFSv3 のクライアントからアクセスを許可している場合、後方互換性のため nfs-mountd も動作が必要。  
