@@ -130,7 +130,6 @@ df -hT | grep nfs
 ```
 192.168.56.103:/srv/nfs/public  /mnt/nfs/public  nfs  defaults,_netdev  0 0
 192.168.56.103:/srv/nfs/share   /mnt/nfs/share   nfs  defaults,_netdev  0 0
-192.168.56.103:/srv/nfs/system   /mnt/nfs/system   nfs  defaults,_netdev  0 0
 ```
 2-3. マウント確認  
 sudo mount -a で一括マウントし df -hT で確認
