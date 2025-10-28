@@ -24,13 +24,11 @@ sudo chmod -R 755 /srv/nfs/public
 sudo chown -R nobody:nobody /srv/nfs/public
 ```
 ```
-# 特定グループ共有（特定 UID/GID のみ書込可）
+# 特定グループ共有（特定 UID/GID のみ書込可） ※ 共有用ユーザ作成は 3.に記載
 
 sudo mkdir -p /srv/nfs/share
-sudo chmod -R 770 /srv/nfs/share
-sudo useradd nfsuser	# 共有用ユーザ作成
-sudo passwd nfsuser
-sudo chown -R nfsuser:nfsuser /srv/nfs/share
+sudo chmod -R 2770 /srv/nfs/share　※ 2770 について：2 → SetGID（グループ継承）770 → 所有者とグループのみ読み書き可
+sudo chown -R root:devgroup /srv/nfs/share
 ```
 ```
 # 管理者専用（管理者のみ書込可）
@@ -137,8 +135,28 @@ sudo mount -a で一括マウントし df -hT で確認
 sudo mount -a
 df -hT | grep nfs
 ```
+### 3. 特定グループ共有フォルダ用設定  
 
-### 3. 備考
+3-1. サーバ側で使用するグループ・ユーザー作成  
+```
+sudo groupadd -g 2000 devgroup　※ -g グループID、最後はグループ名
+sudo useradd -m -u 2001 -g devgroup stream　※ -m ホームディレクトリ作成、-u ユーザID、-g グループ名指定、最後は作成するユーザ名
+sudo useradd -m -u 2002 -g devgroup ubuntu
+sudo useradd -m -u 2004 -g devgroup alma
+```
+3-2. クライアント側も同じ UID/GID で登録ユーザを作成（クライアントサーバごとにそれぞれのユーザ名で作成）
+```
+sudo groupadd -g 2000 devgroup
+sudo useradd -m -u 2001 -g devgroup stream
+``````
+3-3. クライアント側からアクセス確認（AlmaLinux）
+```
+su - alma
+touch /mnt/nfs/share/test.txt
+ls -l /mnt/nfs/share
+```
+
+### 4. 備考  
 - Samba ディレクトリと共存させる場合の注意点    
 Samba は SMB/CIFS（port 445/139）、NFS は RPC 系ポート群（2049など）を使用するためポート競合は基本的に起きないが、ディレクトリ共存は、ファイルロック競合、属性管理の不整合、SELinux コンテキスト問題などトラブル発生の可能性があるとのこと。Samba が同一ディレクトリを提供する場合、ファイル所有者/パーミッションと SELinux コンテキストが一致していることを要確認（例：/srv/nfs/share を Samba の share と同一にする場合、Samba 用に chown と semanage を適切に設定する）  
 
