@@ -102,24 +102,25 @@ Red Hat 系
 sudo dnf install -y nfs-utils
 
 # マウントポイント作成
-sudo mkdir -p /mnt/nfs/{public,share}
+sudo mkdir -p /mnt/nfs/{public,share,system}
 
 # マウント（即時）
 sudo mount -t 192.168.56.103:/srv/nfs/public /mnt/nfs/public
 sudo mount -t 192.168.56.103:/srv/nfs/share /mnt/nfs/share
+sudo mount -t 192.168.56.103:/srv/nfs/system /mnt/nfs/system
 
 # 確認
 df -hT | grep nfs
 ```
 Debian 系
 ```
-sudo apt update
 sudo apt install -y nfs-common
 
-sudo mkdir -p /mnt/nfs/{public,share}
+sudo mkdir -p /mnt/nfs/{public,share,system}
 
 sudo mount -t nfs 192.168.56.103:/srv/nfs/public /mnt/nfs/public
 sudo mount -t nfs 192.168.56.103:/srv/nfs/share /mnt/nfs/share
+sudo mount -t nfs 192.168.56.103:/srv/nfs/system /mnt/nfs/system
 
 df -hT | grep nfs
 ```
@@ -128,6 +129,7 @@ df -hT | grep nfs
 ```
 192.168.56.103:/srv/nfs/public  /mnt/nfs/public  nfs  defaults,_netdev  0 0
 192.168.56.103:/srv/nfs/share   /mnt/nfs/share   nfs  defaults,_netdev  0 0
+192.168.56.103:/srv/nfs/system   /mnt/nfs/system   nfs  defaults,_netdev  0 0
 ```
 2-3. マウント確認  
 sudo mount -a で一括マウントし df -hT で確認
@@ -159,7 +161,7 @@ ls -l /mnt/nfs/share
 ### 4. 備考  
 - 特定グループ共有内ファイルを他ユーザーが編集できない場合  
 既存ファイルに一括グループ書込権限追加：sudo chmod -R g+w /srv/nfs/share  
-新規作成ファイルもグループ書込可能にする：sudo chmod g+s /srv/nfs/share　※ NFSはユーザごとにファイル権限が異なるのでディレクトリに setgid ビット設定、g+s でグループID固定で新規ファイルが自動で devgroup 所属になる  
+新規作成ファイルもグループ書込可にする：sudo chmod g+s /srv/nfs/share　※ NFSはユーザごとにファイル権限が異なるのでディレクトリに setgid ビット設定、g+s でグループID固定で新規ファイルが自動で devgroup 所属になる  
 umask を調整して新規ファイルにグループ書込権限付与：クライアント側ユーザが umask=0022 だとグループ書込が外れるのでグループ共同編集時は以下のように変更  
 各クライアントユーザ：umask 0006  
 恒久化は各ユーザの ~/.bashrc に右記追記：umask 0006  
