@@ -24,7 +24,7 @@ sudo chmod -R 755 /srv/nfs/public
 sudo chown -R nobody:nobody /srv/nfs/public
 ```
 ```
-# 特定グループ共有（特定 UID/GID のみ書込可） ※ 共有用ユーザ作成は 3.に記載
+# 特定グループ共有（特定 UID/GID のみ書込可） ※ 共有用ユーザ作成方法は 3. 、共有内ファイル他ユーザー編集不可時対処法は 4.に記載
 
 sudo mkdir -p /srv/nfs/share
 sudo chmod -R 2770 /srv/nfs/share　※ 2770 について：2 → SetGID（グループ継承）770 → 所有者とグループのみ読み書き可
@@ -157,6 +157,13 @@ ls -l /mnt/nfs/share
 ```
 
 ### 4. 備考  
+- 特定グループ共有内ファイルを他ユーザーが編集できない場合  
+既存ファイルに一括でグループ書込権限追加：sudo chmod -R g+w /srv/nfs/share  
+新規作成ファイルもグループ書込可能にする：sudo chmod g+s /srv/nfs/share　※ NFSはユーザごとにファイル権限が異なるのでディレクトリに「setgid」ビット設定  
+umask を調整して新規ファイルにグループ書込権限付与：クライアント側ユーザが umask=0022 だとグループ書込が外れてしまうのでグループ共同編集前提時は以下のように変更  
+各クライアントユーザ：umask 0002  
+恒久化は各ユーザの ~/.bashrc に右記追記：umask 0002  
+
 - Samba ディレクトリと共存させる場合の注意点    
 Samba は SMB/CIFS（port 445/139）、NFS は RPC 系ポート群（2049など）を使用するためポート競合は基本的に起きないが、ディレクトリ共存は、ファイルロック競合、属性管理の不整合、SELinux コンテキスト問題などトラブル発生の可能性があるとのこと。Samba が同一ディレクトリを提供する場合、ファイル所有者/パーミッションと SELinux コンテキストが一致していることを要確認（例：/srv/nfs/share を Samba の share と同一にする場合、Samba 用に chown と semanage を適切に設定する）  
 
