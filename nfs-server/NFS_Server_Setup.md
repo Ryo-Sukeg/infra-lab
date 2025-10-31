@@ -31,7 +31,7 @@ sudo chmod -R 2770 /srv/nfs/share　※ 2770 について：2 → SetGID（グ�
 sudo chown -R root:devgroup /srv/nfs/share
 ```
 ```
-# 管理者専用（管理者のみ書込可）
+# 管理者専用（管理者のみ書込可、root_squash / scp 運用）
 
 sudo mkdir -p /srv/nfs/system
 sudo chmod -R 700 /srv/nfs/system
@@ -42,13 +42,13 @@ sudo chown -R root:root /srv/nfs/system
 ```
 /srv/nfs/public 192.168.56.0/24(ro,sync,root_squash)
 /srv/nfs/share 192.168.56.0/24(rw,sync,root_squash)
-/srv/nfs/system 192.168.56.0/24(rw,sync,root_squash)
+/srv/nfs/system 192.168.56.103(rw,sync,root_squash)
 ```
 ↑ NFS サーバで公開するディレクトリ情報を記載。左から "共有ディレクトリのパス　アクセス可能なネットワーク(マウントオプション)"  
 - ro：読み取り専用。デフォルト
 - rw：読み書き専用  
 - sync：書き込み時に同期、データを確実にディスクへ書き込んでから応答。デフォルト  
-- root_squash：クライアント root を匿名ユーザ nobody に置き換え（権限昇格防止）。デフォルト  
+- root_squash：クライアント root を匿名ユーザ nobody に置き換え（権限昇格防止）。デフォルト
 
 1-4. 設定反映と確認  
 エクスポート反映・確認（一覧）
@@ -85,7 +85,7 @@ sudo firewall-cmd --list-all
 # NFS書き込み許可（NFS共有に対する一般的設定）
 sudo setsebool -P nfs_export_all_rw on
 
-# Samba と同一ディレクトリを使う場合（Samba書き込み許可）※ 今回は不要
+# Samba と同一ディレクトリを使う場合（Samba書込可）※ 今回は不要
 sudo setsebool -P samba_export_all_rw on
 
 # 共有ディレクトリのラベルが必要な場合
@@ -102,12 +102,11 @@ Red Hat 系
 sudo dnf install -y nfs-utils
 
 # マウントポイント作成
-sudo mkdir -p /mnt/nfs/{public,share,system}
+sudo mkdir -p /mnt/nfs/{public,share}
 
 # マウント（即時）
 sudo mount -t nfs 192.168.56.103:/srv/nfs/public /mnt/nfs/public
 sudo mount -t nfs 192.168.56.103:/srv/nfs/share /mnt/nfs/share
-sudo mount -t nfs 192.168.56.103:/srv/nfs/system /mnt/nfs/system
 
 # 確認
 df -hT | grep nfs
@@ -116,11 +115,10 @@ Debian 系
 ```
 sudo apt install -y nfs-common
 
-sudo mkdir -p /mnt/nfs/{public,share,system}
+sudo mkdir -p /mnt/nfs/{public,share}
 
 sudo mount -t nfs 192.168.56.103:/srv/nfs/public /mnt/nfs/public
 sudo mount -t nfs 192.168.56.103:/srv/nfs/share /mnt/nfs/share
-sudo mount -t nfs 192.168.56.103:/srv/nfs/system /mnt/nfs/system
 
 df -hT | grep nfs
 ```
@@ -129,7 +127,6 @@ df -hT | grep nfs
 ```
 192.168.56.103:/srv/nfs/public  /mnt/nfs/public  nfs  defaults,_netdev  0 0
 192.168.56.103:/srv/nfs/share   /mnt/nfs/share   nfs  defaults,_netdev  0 0
-192.168.56.103:/srv/nfs/system   /mnt/nfs/system   nfs  defaults,_netdev  0 0
 ```
 2-3. マウント確認  
 sudo mount -a で一括マウントし df -hT で確認
