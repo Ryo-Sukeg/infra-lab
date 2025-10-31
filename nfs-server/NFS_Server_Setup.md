@@ -42,7 +42,7 @@ sudo chown -R root:root /srv/nfs/system
 ```
 /srv/nfs/public 192.168.56.0/24(ro,sync,root_squash)
 /srv/nfs/share 192.168.56.0/24(rw,sync,root_squash)
-/srv/nfs/system 192.168.56.103(rw,sync,root_squash)
+/srv/nfs/system 192.168.56.0/24(rw,sync,root_squash)
 ```
 ↑ NFS サーバで公開するディレクトリ情報を記載。左から "共有ディレクトリのパス　アクセス可能なネットワーク(マウントオプション)"  
 - ro：読み取り専用。デフォルト
@@ -105,9 +105,9 @@ sudo dnf install -y nfs-utils
 sudo mkdir -p /mnt/nfs/{public,share,system}
 
 # マウント（即時）
-sudo mount -t 192.168.56.103:/srv/nfs/public /mnt/nfs/public
-sudo mount -t 192.168.56.103:/srv/nfs/share /mnt/nfs/share
-sudo mount -t 192.168.56.103:/srv/nfs/system /mnt/nfs/system
+sudo mount -t nfs 192.168.56.103:/srv/nfs/public /mnt/nfs/public
+sudo mount -t nfs 192.168.56.103:/srv/nfs/share /mnt/nfs/share
+sudo mount -t nfs 192.168.56.103:/srv/nfs/system /mnt/nfs/system
 
 # 確認
 df -hT | grep nfs
