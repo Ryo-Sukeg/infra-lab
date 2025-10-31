@@ -31,7 +31,7 @@ sudo chmod -R 2770 /srv/nfs/share　※ 2770 について：2 → SetGID（グ�
 sudo chown -R root:devgroup /srv/nfs/share
 ```
 ```
-# 管理者専用（管理者のみ書込可、root_squash / scp 運用）
+# 管理者専用（管理者のみ書込可、バックアップ格納用）
 
 sudo mkdir -p /srv/nfs/system
 sudo chmod -R 700 /srv/nfs/system
@@ -148,7 +148,7 @@ sudo useradd -m -u 2004 -g devgroup alma
 sudo groupadd -g 2000 devgroup
 sudo useradd -m -u 2001 -g devgroup stream
 ``````
-3-3. クライアント側からアクセス確認（AlmaLinux）
+3-3. クライアント側からアクセス確認
 ```
 su - alma
 touch /mnt/nfs/share/test.txt
@@ -172,3 +172,23 @@ NFS サーバ上で動作するデーモン、NFS クライアントからのマ
 - rpcbind について  
 クライアントがネットワーク上の RPC（Remote Procedure Call）サービスに動的に接続するためにサービスのアドレス情報を管理するデーモン。クライアントは rpcbind に問い合わせて RPC サービスが待機しているポート番号を確認して接続を確立する。rpcbind は NFS などで利用されるポート番号111を使用する  
 重要性：rpcbind が停止すると RPC サービスへの接続・利用ができなくなる、NFS や NIS のような RPC を利用するサービスには必要不可欠なコンポーネント
+
+### 気になったコマンド
+- scp [オプション] コピー元 コピー先：ssh接続ホスト間コピー転送  
+-i 鍵ファイル：ssh接続に使用する鍵ファイル指定  
+-P ポート番号：接続に使用するポート指定（sshのポートを変更している場合など）  
+-p：タイムスタンプやパーミッション保持  
+-r：ディレクトリごと再帰的にコピー  
+※ 使用例バックアップ送信：scp /etc/hosts root@192.168.56.103:/srv/nfs/system/stream9/
+
+- rsync [オプション] 同期対象 同期先：同期転送（/有：ディレクトリ配下ファイル同期、/無：ディレクトリ同期）、TCP873port  
+-a：-rlptgoD と同効果（--recursive --links --perms --times --group --owner --devices）  
+-v：処理過程表示  
+-r：ディレクトリごと再帰的にコピー  
+-e ssh：ssh経由で同期 ※ 使用推奨  
+-z：圧縮転送 ※ 転送負荷軽減  
+--delete：削除ファイルも同期  
+--existing：更新分のみ同期（追加は除く）  
+--exclude：除外対象指定  
+--version：バージョン確認 ※ バージョン3.4.0未満は深刻な脆弱性が複数あるため即アップデート推奨  
+※ 使用例バックアップ同期：rsync -avz -e ssh /etc /srv/nfs/system/stream9_etc/
