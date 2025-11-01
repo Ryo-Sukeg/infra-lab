@@ -19,12 +19,12 @@
 | 備 考 | Active Directory 連携可能 | HAクラスタや仮想環境で安定稼働、firewall・IP 制御、Kerberos 認証追加可能 |
 
 ### 構成情報  
-| 役 割 | ホスト名 | O S | IPアドレス | 備 考 |
+| 役 割 | FQDN | O S | IPアドレス | 備 考 |
 |------|---------|----|-------------|------|
-| クライアント | stream | Stream 9 | 192.168.56.101 | DNS master / NTPサーバ |
-| クライアント | ubuntu | Ubuntu 24.04.3 | 192.168.56.102 | DNS slave / NTPサーバ |
-| Samba / **NFS** サーバ | **rhel** | RHEL 9.6 | **192.168.56.103** | Windows・Linux 共有 / **Linux 共有** |
-| クライアント | alma | AlmaLinux 9.6 | 192.168.56.104 | LAMP環境 / Zabbix |
+| クライアント | stream.lab.lan | CentOS Stream 9 | 192.168.56.101 | DNS master / NTPサーバ |
+| クライアント | ubuntu.lab.lan | Ubuntu 24.04.3 | 192.168.56.102 | DNS slave / NTPサーバ |
+| Samba / **NFS** サーバ | **rhel.lab.lan** | RHEL 9.6 | **192.168.56.103** | Windows・Linux 共有 / **Linux 共有** |
+| クライアント | alma.lab.lan | AlmaLinux 9.6 | 192.168.56.104 | LAMP環境 / Zabbix |
 
 ### 共有ディレクトリ構成  
 | ディレクトリ | 用 途 | アクセス権限 | 備 考 |
