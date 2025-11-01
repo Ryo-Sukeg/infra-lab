@@ -24,7 +24,7 @@ sudo chmod -R 755 /srv/nfs/public
 sudo chown -R nobody:nobody /srv/nfs/public
 ```
 ```
-# 特定グループ共有（特定 UID/GID のみ書込可） ※ 共有用ユーザ作成方法は 3. 、共有内ファイル他ユーザー編集不可時対処法は 4.に記載
+# 特定グループ共有（特定 UID/GID のみ書込可） ※ 共有用ユーザ作成方法は 3. 、共有ファイル他ユーザー編集不可時対処法は 4.に記載
 
 sudo mkdir -p /srv/nfs/share
 sudo chmod -R 2770 /srv/nfs/share　※ 2770 について：2 → SetGID（グループ継承）770 → 所有者とグループのみ読み書き可
