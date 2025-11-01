@@ -8,12 +8,12 @@
 | [DNS_Server_verification.md](./DNS_Server_Verification.md) | digコマンドを使った検証結果記録 |  
 
 ### 構成情報  
-| 役 割 | ホスト名 | O S | IPアドレス | 主なサービス |  
+| 役 割 | FQDN | O S | IPアドレス | 主なサービス |  
 |------|-----------|----|-------------|---------------|  
-| **DNS master** | **stream** | CentOS Stream 9 | **192.168.56.101** | **BIND（named）/ chrony** |  
-| **DNS slave** | **ubuntu** | Ubuntu 24.04.3 | **192.168.56.102** | **BIND（named）/ chrony** |  
-| クライアント | rhel | RHEL 9.6 | 192.168.56.103 | samba / NFS |  
-| クライアント | alma | AlmaLinux 9.6 | 192.168.56.104 | LAMP環境 / Zabbix |  
+| **DNS master** | **stream.lab.lan** | CentOS Stream 9 | **192.168.56.101** | **BIND（named）**/ chrony |  
+| **DNS slave** | **ubuntu.lab.lan** | Ubuntu 24.04.3 | **192.168.56.102** | **BIND（named）**/ chrony |  
+| クライアント | rhel.lab.lan | RHEL 9.6 | 192.168.56.103 | samba / NFS |  
+| クライアント | alma.lab.lan | AlmaLinux 9.6 | 192.168.56.104 | LAMP環境 / Zabbix |  
 
 ### 目的    
 ローカルネットワーク内にBINDを利用したDNSサーバを構築し、内部ドメイン名解決を行える環境を作成する。
