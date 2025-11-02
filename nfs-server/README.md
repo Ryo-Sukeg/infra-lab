@@ -34,3 +34,7 @@
 | /srv/nfs/system | バックアップなど（管理者専用） | root、IP 制御（192.168.56.103）| 管理サーバ専用 |
 
 ※ samba 共有ディレクトリと別ディレクトリにした理由：ファイルロック競合・属性管理の不整合・SELinux コンテキスト問題などのトラブル回避
+
+<img width="1698" height="725" alt="image" src="https://github.com/user-attachments/assets/f1cfad52-fb75-43a7-9634-1f161e9324d8" />
+
+<img width="1628" height="671" alt="image" src="https://github.com/user-attachments/assets/0d63825b-3201-47ad-a1ab-ab8e889ae419" />
