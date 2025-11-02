@@ -35,7 +35,7 @@ $ systemctl status nfs-server
 11月 02 16:01:13 RHEL9.6 systemd[1]: Starting NFS server and services...
 11月 02 16:01:14 RHEL9.6 systemd[1]: Finished NFS server and services.
 ```
-1-2. エクスポートディレクトリパーミッション確認
+1-2. エクスポートディレクトリ設定状態確認
 ```
 ls -l /srv/nfs
 ```
@@ -81,7 +81,7 @@ $ sudo exportfs -v
 
 ### 2. クライアントからのアクセス確認
 
-2-1. クライアントのマウント状態確認
+2-1. NFS サーバのエクスポート状態確認
 ```
 showmount -e 192.168.56.103
 ```
@@ -93,6 +93,8 @@ Export list for 192.168.56.103:
 /srv/nfs/public 192.168.56.0/24
 /srv/nfs/system 192.168.56.103
 ```
+2-2. マウント状態確認
+```
 df -hT | grep nfs
 ```
 出力結果：
@@ -101,7 +103,7 @@ $ df -hT | grep nfs
 192.168.56.103:/srv/nfs/share  nfs4        17G  2.4G   15G   14% /mnt/nfs/share
 192.168.56.103:/srv/nfs/public nfs4        17G  2.4G   15G   14% /mnt/nfs/public
 ```
-2-2. 読み書きテスト  
+2-3. 読み書きテスト  
 
 public（読み取り専用）
 ```
@@ -136,18 +138,15 @@ touch: '/mnt/nfs/share/test_stream.txt' に touch できません: 許可があ�
 -rw-rw----. 1 stream devgroup  0 11月  2 18:24 test_stream.txt
 -rw-rw----. 1 ubuntu devgroup 96 10月 29 23:41 ubuntu_test.txt
 ```
-```
 system（管理者専用）
 ```
 # クライアントからファイル送信
-[root@Stream9 ~]# su - ryo.s
-最終ログイン: 2025/11/02 (日) 18:38:04 JST 日時 pts/0
 [ryo.s@Stream9 ~]$ touch test_from_stream.txt
 [ryo.s@Stream9 ~]$ scp ./test_from_stream.txt root@192.168.56.103:/srv/nfs/system
 root@192.168.56.103's password:
 test_from_stream.txt                                     100%    0     0.0KB/s   00:00
 
-# NFS サーバ側の system ディレクトリアクセス確認と受信ファイル確認
+# NFS サーバ側のアクセス確認と受信ファイル確認
 [ryo.s@RHEL9 ~]$ cd /srv/nfs/system
 -bash: cd: /srv/nfs/system: 許可がありません
 [ryo.s@RHEL9 ~]$ su -
@@ -158,8 +157,7 @@ test_from_stream.txt                                     100%    0     0.0KB/s  
 合計 0
 -rw-r--r--. 1 root root 0 11月  2 19:17 test_from_stream.txt
 ```
-
-###3. SELinux / Firewall 動作確認（NFS Server）  
+### 3. SELinux / Firewall 動作確認（NFS Server）  
 3.1 SELinux ブール値確認
 ```
 getsebool -a | grep nfs | grep ' on'
@@ -171,6 +169,7 @@ nfs_export_all_ro --> on
 nfs_export_all_rw --> on
 ```
 3.2 Firewall 設定確認
+```
 sudo firewall-cmd --list-all | grep services
 ```
 出力結果：
