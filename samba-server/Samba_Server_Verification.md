@@ -115,7 +115,7 @@ $ ls -l /mnt/samba/alma_test.txt
 
 ### 3. SELinux / Firewall 動作確認（Samba Server）  
 
-3-1. SELinuxブール値確認
+3-1. SELinux ブール値確認
 ```
 sudo getsebool -a | grep samba
 ```
@@ -137,7 +137,7 @@ tmpreaper_use_samba --> off
 use_samba_home_dirs --> off
 virt_use_samba --> off
 ```
-3-2. ファイアウォール設定
+3-2. Firewall 設定確認
 ```
 sudo firewall-cmd --list-all | grep services
 ```
@@ -146,7 +146,7 @@ sudo firewall-cmd --list-all | grep services
 $ sudo firewall-cmd --list-all | grep service
 services: cockpit dhcpv6-client mountd nfs ntp rpc-bind samba ssh
 ```
-### 3. 検証結果まとめ
+### 検証結果まとめ
 | 項 目 | 結 果 |
 |------|------|
 | Linuxクライアントからの接続	| 正常（認証あり・認証なし：共に問題なし）|
