@@ -32,7 +32,7 @@ Windows / Linux 両クライアントから同一共有ディレクトリへア�
 | ディレクトリ | 用 途 | アクセス権限 | 備 考 |
 |---------------|------|----------------|------|
 | /mnt/samba/share | メイン共有フォルダ | 読み書き可（認証ユーザのみ）| Linux・Windows共有 |
-| /mnt/public | 共有フォルダ | 読み書き可（全ユーザ） | Linux・Windows共有 |
+| /mnt/samba/public | 共有フォルダ | 読み書き可（全ユーザ） | Linux・Windows共有 |
 
 
 <img width="1781" height="853" alt="image" src="https://github.com/user-attachments/assets/ebb5239b-e15f-4d0d-a32f-889a5e3abebe" />
