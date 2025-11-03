@@ -16,61 +16,93 @@
 
 ---
 ## 手順
-### 1. Samba サーバ設定
+### 1. Samba サーバ設定  
 1-1. Samba インストール
 ```
 sudo dnf install -y samba samba-client samba-common
 ```
-1-2. 共有ディレクトリ作成
+1-2. 共有ディレクトリ作成  
 ```
 # 認証あり
 
 sudo mkdir -p /srv/samba/share
-sudo chmod -R 0777 /srv/samba/share
-sudo chown -R nobody:nobody /srv/samba/share
+sudo chmod -R 0775 /srv/samba/share
+sudo chown -R root:smbusers /srv/samba/share
 ```
 ```
 # 認証なし
 
 sudo mkdir -p /srv/samba/public
-sudo chmod -R 0777 /srv/samba/public
+sudo chmod -R 0775 /srv/samba/public
 sudo chown -R nobody:nobody /srv/samba/public
 sudo semanage fcontext -a -t samba_share_t "/srv/samba/public(/.*)?"
 sudo restorecon -Rv /srv/samba/public
 ```
-※ `semanage fcontext` と `restorecon` は 4. 備考 の下の **SELinux の設定について** に記載
+※ `semanage fcontext` と `restorecon` は 4. 備考 の下の SELinux の設定についてに記載  
 
 1-3. 設定ファイル編集  
 /etc/samba/smb.conf の末尾に以下を追加：    ※ 不要な共有（ [homes], [printers] ）は # でコメントアウト
 ```
+[global]
+   workgroup = WORKGROUP
+   security = user
+   map to guest = Bad User
+   guest account = nobody
+
 [share]
-    path = /srv/samba/share
-    browseable = yes
-    writable = yes
-    valid users = sambauser
+   path = /srv/samba/share
+   browseable = yes
+   writable = yes
+   valid users = @smbusers
+   create mask = 0660
+   directory mask = 0770
 
 [public]
-      path = /srv/samba/public
-      guest ok = yes
-      writable = yes
-      browsable = yes
+   path = /srv/samba/public
+   browseable = yes
+   writable = yes
+   guest ok = yes
+   force user = nobody
+   force group = nobody
+   create mask = 0666
+   directory mask = 0777
 ```
-1-4. Samba ユーザー設定
-```
-# OSユーザー作成
+- workgroup = WORKGROUP：Samba サーバの Windows ネットワーク上の所属グループ名。デフォルト
+- map to guest = Bad User：存在しないユーザーを guest 扱いに変換
+- guest account = nobody：guest ユーザーをシステムユーザー nobody に紐づけ
+- guest ok = yes：該当共有で guest 接続を許可
+- force user/group = nobody：ファイル作成時の所有者を固定
 
-sudo useradd sambauser
-sudo passwd sambauser
-```
-```
-# Sambaユーザーとして登録
+1-4. Samba ユーザー作成と登録  
 
-sudo smbpasswd -a sambauser		※ -a オプション : 新パスワードとともにローカルの smbpasswd ファイルに追加、既存時は変更して上書き
-sudo smbpasswd -e sambauser		※ -e オプション : smbpasswd ファイル内の指定したユーザー名を有効にする
+Linux ユーザー作成
 ```
+sudo useradd -M -s /sbin/nologin alma
+sudo passwd alma
 ```
-# Samba データベースに登録済みのユーザーを確認
+- -M：ホームディレクトリを作成しない
+- -s：使用するシェルを指定
+- /sbin/nologin：システムログイン不可を意味する特殊シェル（システムログイン不要の場合）  
 
+Samba 認証ユーザー登録
+```
+sudo smbpasswd -a alma		※ -a オプション : 新パスワードとともにローカルの smbpasswd ファイルに追加、既存時は変更して上書き
+sudo smbpasswd -e alma		※ -e オプション : smbpasswd ファイル内の指定したユーザー名を有効にする
+```
+1-5. ユーザー／グループ単位のアクセス制御設定  
+
+グループ作成とメンバー登録
+```
+sudo groupadd -g 2000 smbusers
+sudo usermod -aG smbusers alma
+```
+ディレクトリのグループ所有を変更
+```
+sudo chown -R root:smbusers /srv/samba/share
+sudo chmod -R 0775 /srv/samba/share
+```
+Samba データベースに登録済みのユーザーを確認
+```
 sudo pdbedit -L		※ -Lオプション : 全ユーザアカウント一覧表示
 ```
 1-5. SELinux / Firewall 設定  
@@ -95,14 +127,14 @@ Linux クライアント
 ```
 # 認証ありフォルダ
 
-sudo mkdir -p /mnt/samba
-sudo mount -t cifs //192.168.56.103/share /mnt/samba -o username=sambauser,password=SambaPass123,vers=3.0
+sudo mkdir -p /mnt/samba/share
+sudo mount -t cifs //192.168.56.103/share /mnt/samba/share -o username=alma,password=sambapass123,vers=3.0
 ```
 ```
 # 認証なしフォルダ
 
-sudo mkdir -p /mnt/public
-sudo mount -t cifs //192.168.56.103/public /mnt/public -o guest,vers=3.0
+sudo mkdir -p /mnt/samba/public
+sudo mount -t cifs //192.168.56.103/public /mnt/samba/public -o guest,vers=3.0
 ```
 Windows クライアント（エクスプローラで入力）
 ```
@@ -113,7 +145,7 @@ Windows クライアント（エクスプローラで入力）
 ```
 # 認証ありフォルダ
 
-//192.168.56.103/share  /mnt/samba  cifs  credentials=/root/.smbcred,vers=3.0  0  0
+//192.168.56.103/share  /mnt/samba/share  cifs  credentials=/root/.smbcred,vers=3.0  0  0
 ```
 ※ 上記の credentials で指定した `.smbcred` ファイルは root のみ読み書き可にして別途作成  
 ```
@@ -123,8 +155,8 @@ sudo vi /root/.smbcred
 
 # 下記 username と password がファイル内容
 ---------------------------------
-username=sambauser
-password=SambaPass123
+username=alma
+password=sambapass123
 ---------------------------------
 
 sudo chmod 600 /root/.smbcred
@@ -132,10 +164,10 @@ sudo chmod 600 /root/.smbcred
 ```
 # 認証なしフォルダ
 
-//192.168.56.103/public  /mnt/public  cifs  guest,vers=3.0,_netdev  0  0
+//192.168.56.103/public  /mnt/samba/public  cifs  guest,vers=3.0,_netdev  0  0
 ```
 ### 3. NFSとの共存設定
-samba サーバの既存 /srv/samba/share を /etc/exports にも設定して NFS 共有
+samba サーバの既存 /srv/samba/share を /etc/exports にも設定して NFS 共有（※ 今回は設定していません）
 ```
 sudo vi /etc/exports
 
