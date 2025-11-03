@@ -72,10 +72,10 @@ $ sudo systemctl status smb nmb
 共有フォルダのマウント
 ```bash
 # 公開共有ディレクトリ (guest OK)  ※ マウント元サーバをFQDNで指定する場合はDNSサーバ起動必要、IPアドレス指定でも可
-sudo mount -t cifs //rhel.lab.lan/public /mnt/public -o guest,vers=3.0
+sudo mount -t cifs //rhel.lab.lan/public /mnt/samba/public -o guest,vers=3.0
 
 # 認証付き共有ディレクトリ
-sudo mount -t cifs //rhel.lab.lan/share /mnt/samba -o username=sambauser,password=SambaPass123,vers=3.0
+sudo mount -t cifs //rhel.lab.lan/share /mnt/samba/share -o username=alma,password=sambapass123,vers=3.0
 ```
 マウント確認
 ```
@@ -84,8 +84,8 @@ df -hT | grep cifs
 出力結果：
 ```
 $ df -hT | grep cifs
-//rhel.lab.lan/public           cifs        17G  2.4G   15G   14% /mnt/public
-//rhel.lab.lan/share            cifs        17G  2.4G   15G   14% /mnt/samba
+//rhel.lab.lan/public           cifs        17G  2.4G   15G   14% /mnt/samba/public
+//rhel.lab.lan/share            cifs        17G  2.4G   15G   14% /mnt/samba/share
 ```
 読み書きテスト
 ```
@@ -94,9 +94,9 @@ ls -l /mnt/samba/alma_test.txt
 ```
 出力結果：
 ```
-$ sudo touch /mnt/samba/alma_test.txt
-$ ls -l /mnt/samba/alma_test.txt
--rwxr-xr-x. 1 root root 0 10月 14 14:04 /mnt/samba/alma_test.txt
+$ sudo touch /mnt/samba/public/alma_test.txt
+$ ls -l /mnt/samba/public/alma_test.txt
+-rwxr-xr-x. 1 root root 0 10月 14 14:04 /mnt/samba/public/alma_test.txt
 ```
 2-2. Windows クライアントでの検証（Windows 11）
 
@@ -104,7 +104,7 @@ $ ls -l /mnt/samba/alma_test.txt
 ```
 # 認証あり共有フォルダ  
 エクスプローラ：\\rhel.lab.lan\share  
-ユーザ名：sambauser  
+ユーザ名：alma  
 パスワード：********
 
 # 認証なし共有フォルダ  
