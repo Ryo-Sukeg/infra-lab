@@ -1,6 +1,6 @@
 # Samba Server 構築手順（RHEL9.6）
 
-本構成は RHEL9.6 上に Samba サーバを構築し、Windows および Linux クライアントからアクセスできるファイル共有サーバを実現しています。  
+本構成は RHEL9.6 上に Samba サーバを構築し、Windows と Linux クライアントからアクセスできるファイル共有サーバを実現しています。  
 
 ## 構成概要
 | 項 目 | 内 容 |
@@ -26,19 +26,21 @@ sudo dnf install -y samba samba-client samba-common
 # 認証あり
 
 sudo mkdir -p /srv/samba/share
-sudo chmod -R 0775 /srv/samba/share
+sudo chmod -R 2770 /srv/samba/share
 sudo chown -R root:smbusers /srv/samba/share
 ```
+※ 2770 について：2 → SetGID（ディレクトリの場合：ディレクトリ内に作成された新ファイル・ディレクトリが親ディレクトリのグループ所有者を自動継承）770 → 所有者とグループのみ読み書き可
 ```
 # 認証なし
 
 sudo mkdir -p /srv/samba/public
-sudo chmod -R 0775 /srv/samba/public
+sudo chmod -R 0777 /srv/samba/public
 sudo chown -R nobody:nobody /srv/samba/public
 sudo semanage fcontext -a -t samba_share_t "/srv/samba/public(/.*)?"
 sudo restorecon -Rv /srv/samba/public
 ```
 ※ `semanage fcontext` と `restorecon` は 4. 備考 の下の SELinux の設定についてに記載  
+他ユーザーが作成したファイルを削除・変更不可にするには、対象ディレクトリに sticky ビットを追加する（例：chmod -R 1770 ディレクトリパス、chmod o+t ディレクトリパス）
 
 1-3. 設定ファイル編集  
 /etc/samba/smb.conf の末尾に以下を追加：    ※ 不要な共有（ [homes], [printers] ）は # でコメントアウト
@@ -86,68 +88,66 @@ sudo passwd alma
 
 Samba 認証ユーザー登録
 ```
-sudo smbpasswd -a alma		※ -a オプション : 新パスワードとともにローカルの smbpasswd ファイルに追加、既存時は変更して上書き
+sudo smbpasswd -a alma		※ -a オプション : 新パスワードと一緒にローカルの smbpasswd ファイルに追記・既存時は上書きされる
 sudo smbpasswd -e alma		※ -e オプション : smbpasswd ファイル内の指定したユーザー名を有効にする
 ```
 1-5. ユーザー／グループ単位のアクセス制御設定  
 
 グループ作成とメンバー登録
 ```
-sudo groupadd -g 2000 smbusers
+sudo groupadd -g 2001 smbusers
 sudo usermod -aG smbusers alma
-```
-ディレクトリのグループ所有を変更
-```
-sudo chown -R root:smbusers /srv/samba/share
-sudo chmod -R 0775 /srv/samba/share
 ```
 Samba データベースに登録済みのユーザーを確認
 ```
 sudo pdbedit -L		※ -Lオプション : 全ユーザアカウント一覧表示
 ```
-1-5. SELinux / Firewall 設定  
+1-6. SELinux / Firewall 設定  
 ```
 sudo setsebool -P samba_export_all_rw on    ※ -P オプション : persistent の意味で再起動後も設定を維持
 sudo firewall-cmd --add-service=samba --permanent
 sudo firewall-cmd --reload
 ```
-1-6. サービス起動
+1-7. サービス起動
 ```
 sudo systemctl enable --now smb nmb
 sudo systemctl status smb nmb
 ```
 ### 2. クライアント設定
-2-1. パッケージインストール
+2-1. Linux クライアント・パッケージインストール
 ```
 sudo dnf install -y samba-client cifs-utils
 ```
-2-2. クライアント接続確認 
-
-Linux クライアント
+2-2. Linux クライアント・マウント設定 
 ```
 # 認証ありフォルダ
 
 sudo mkdir -p /mnt/samba/share
-sudo mount -t cifs //192.168.56.103/share /mnt/samba/share -o username=alma,password=sambapass123,vers=3.0
+sudo mount -t cifs //192.168.56.103/share /mnt/samba/share \
+    -o username=alma,password=sambapass123,vers=3.0,gid=2001,file_mode=0660,dir_mode=0770
 ```
 ```
 # 認証なしフォルダ
 
 sudo mkdir -p /mnt/samba/public
-sudo mount -t cifs //192.168.56.103/public /mnt/samba/public -o guest,vers=3.0
+sudo mount -t cifs //192.168.56.103/public /mnt/samba/public \
+    -o guest,vers=3.0,uid=65534,gid=65534,file_mode=0666,dir_mode=0777
 ```
-Windows クライアント（エクスプローラで入力）
+2-3. Windows クライアント接続確認（エクスプローラで入力）
 ```
+# 認証あり
 \\192.168.56.103\share
+
+# 認証なし
+\\192.168.56.103\public
 ```
-2-3. 永続化設定（任意）  
+2-4. Linux クライアント・永続化設定（任意）  
 /etc/fstab に以下を追記：    ※ 共有フォルダ自動マウント設定
 ```
-# 認証ありフォルダ
-
-//192.168.56.103/share  /mnt/samba/share  cifs  credentials=/root/.smbcred,vers=3.0  0  0
+//192.168.56.103/public  /mnt/samba/public  cifs  guest,uid=65534,gid=65534,file_mode=0666,dir_mode=0777 ,vers=3.0,_netdev  0  0
+//192.168.56.103/share /mnt/samba/share cifs credentials=/root/.smbcred,gid=2001,file_mode=0660,dir_mode=0770,vers=3.0,_netdev 0 0
 ```
-※ 上記の credentials で指定した `.smbcred` ファイルは root のみ読み書き可にして別途作成  
+※ credentials で指定した `.smbcred` ファイルは root のみ読み書き可にして別途作成。↑ uid/gid=65534 は nobody  
 ```
 # .smbcred ファイル作成例
 
@@ -160,11 +160,6 @@ password=sambapass123
 ---------------------------------
 
 sudo chmod 600 /root/.smbcred
-```
-```
-# 認証なしフォルダ
-
-//192.168.56.103/public  /mnt/samba/public  cifs  guest,vers=3.0,_netdev  0  0
 ```
 ### 3. NFSとの共存設定
 samba サーバの既存 /srv/samba/share を /etc/exports にも設定して NFS 共有（※ 今回は設定していません）
