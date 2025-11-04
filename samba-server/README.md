@@ -35,7 +35,8 @@ Windows / Linux 両クライアントから同一共有ディレクトリへア�
 | /mnt/samba/public | 共有フォルダ | 読み書き可（全ユーザ） | Linux・Windows共有 |
 
 
-<img width="1781" height="853" alt="image" src="https://github.com/user-attachments/assets/ebb5239b-e15f-4d0d-a32f-889a5e3abebe" />
+<img width="1752" height="843" alt="image" src="https://github.com/user-attachments/assets/b07a973e-fa89-46cb-a45b-d18afe610f92" />
 
 
-<img width="1572" height="882" alt="image" src="https://github.com/user-attachments/assets/24be3ec4-a61b-412b-9a58-f3d883a897ab" />
+
+<img width="1753" height="840" alt="image" src="https://github.com/user-attachments/assets/20b867a5-4999-4aeb-a3a6-48eef8e2deee" />
