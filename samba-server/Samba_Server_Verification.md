@@ -4,78 +4,85 @@
 
 | サーバ種別 | O S | FQDN | IPアドレス | 役 割 |
 |-------------|-----|-----------|-------------|------|
-| Linux client | CentOS Stream 9 | stream.lab.lan | 192.168.56.101 | 共有フォルダにtxtアップロード |
-| Linux client | Ubuntu 24.04.3 | ubuntu.lab.lan | 192.168.56.102 | 共有フォルダにtxtアップロード |
-| **samba** / NFS | RHEL 9.6 | **rhel.lab.lan** | **192.168.56.103** | **ファイル共有サーバ** |
+| Linux client | CentOS Stream 9 | stream.lab.lan | 192.168.56.101 | txtアップロード |
+| Linux client | Ubuntu 24.04.3 | ubuntu.lab.lan | 192.168.56.102 | txtアップロード |
+| **samba** / NFS | RHEL 9.6 | **rhel.lab.lan** | **192.168.56.103** | **Windows / Linux ファイル共有サーバ** |
 | Linux client | AlmaLinux 9.6 | alma.lab.lan | 192.168.56.104 | 検証テスト |
 | Windows client | Windows 11 |   - | 172.21.100.x/24 | 検証テスト |
 
 ---
 
-### 1. Samba サーバの状態確認
+### 1. Samba サーバ状態確認
 
 ```
-sudo systemctl status smb nmb
+systemctl status smb nmb
 ```
 出力結果：
 ```
-$ sudo systemctl status smb nmb
+$ systemctl status smb nmb
 
 ● smb.service - Samba SMB Daemon
      Loaded: loaded (/usr/lib/systemd/system/smb.service; enabled; preset: disabled)
-     Active: active (running) since Tue 2025-10-14 12:00:37 JST; 14min ago
+     Active: active (running) since Tue 2025-11-04 16:36:38 JST; 9h ago
        Docs: man:smbd(8)
              man:samba(7)
              man:smb.conf(5)
-   Main PID: 914 (smbd)
+   Main PID: 2006 (smbd)
      Status: "smbd: ready to serve connections..."
-      Tasks: 4 (limit: 11066)
-     Memory: 13.7M
-        CPU: 371ms
+      Tasks: 7 (limit: 11066)
+     Memory: 13.1M
+        CPU: 18.440s
      CGroup: /system.slice/smb.service
-             tq 914 /usr/sbin/smbd --foreground --no-process-group
-             tq 962 /usr/sbin/smbd --foreground --no-process-group
-             tq 965 /usr/sbin/smbd --foreground --no-process-group
-             mq1336 /usr/sbin/smbd --foreground --no-process-group
+             tq2006 /usr/sbin/smbd --foreground --no-process-group
+             tq2008 /usr/sbin/smbd --foreground --no-process-group
+             tq2009 /usr/sbin/smbd --foreground --no-process-group
+             tq2786 /usr/sbin/smbd --foreground --no-process-group
+             tq3191 /usr/sbin/smbd --foreground --no-process-group
+             tq3192 /usr/sbin/smbd --foreground --no-process-group
+             mq3550 /usr/sbin/smbd --foreground --no-process-group
 
-10月 14 12:00:37 RHEL9.6 systemd[1]: Starting Samba SMB Daemon...
-10月 14 12:00:37 RHEL9.6 smbd[914]: [2025/10/14 12:00:37.667644,  0] ../../source3/smbd/server.c:1965(main)
-10月 14 12:00:37 RHEL9.6 smbd[914]:   smbd version 4.21.3 started.
-10月 14 12:00:37 RHEL9.6 smbd[914]:   Copyright Andrew Tridgell and the Samba Team 1992-2024
-10月 14 12:00:37 RHEL9.6 systemd[1]: Started Samba SMB Daemon.
+11月 05 01:26:46 RHEL9.6 samba-dcerpcd[3495]:   Copyright Andrew Tridgell and the Samba Team 1992-2024
+11月 05 01:26:47 RHEL9.6 rpcd_classic[3505]: [2025/11/05 01:26:47.022595,  0] ../../source3/rpc_server/rpc_worker.c:1148(rpc_worker_main)
+11月 05 01:26:47 RHEL9.6 rpcd_classic[3505]:   rpcd_classic version 4.21.3 started.
+11月 05 01:26:47 RHEL9.6 rpcd_classic[3505]:   Copyright Andrew Tridgell and the Samba Team 1992-2024
+11月 05 01:26:47 RHEL9.6 rpcd_winreg[3507]: [2025/11/05 01:26:47.190991,  0] ../../source3/rpc_server/rpc_worker.c:1148(rpc_worker_main)
+11月 05 01:26:47 RHEL9.6 rpcd_winreg[3507]:   rpcd_winreg version 4.21.3 started.
+11月 05 01:26:47 RHEL9.6 rpcd_winreg[3507]:   Copyright Andrew Tridgell and the Samba Team 1992-2024
+11月 05 01:26:47 RHEL9.6 rpcd_winreg[3509]: [2025/11/05 01:26:47.443135,  0] ../../source3/rpc_server/rpc_worker.c:1148(rpc_worker_main)
+11月 05 01:26:47 RHEL9.6 rpcd_winreg[3509]:   rpcd_winreg version 4.21.3 started.
+11月 05 01:26:47 RHEL9.6 rpcd_winreg[3509]:   Copyright Andrew Tridgell and the Samba Team 1992-2024
 
 ● nmb.service - Samba NMB Daemon
      Loaded: loaded (/usr/lib/systemd/system/nmb.service; enabled; preset: disabled)
-     Active: active (running) since Tue 2025-10-14 12:00:37 JST; 14min ago
+     Active: active (running) since Tue 2025-11-04 16:36:38 JST; 9h ago
        Docs: man:nmbd(8)
              man:samba(7)
              man:smb.conf(5)
-   Main PID: 857 (nmbd)
+   Main PID: 2004 (nmbd)
      Status: "nmbd: ready to serve connections..."
       Tasks: 1 (limit: 11066)
-     Memory: 14.6M
-        CPU: 496ms
+     Memory: 2.8M
+        CPU: 3.984s
      CGroup: /system.slice/nmb.service
-             mq857 /usr/sbin/nmbd --foreground --no-process-group
+             mq2004 /usr/sbin/nmbd --foreground --no-process-group
 
-10月 14 12:00:36 RHEL9.6 systemd[1]: Starting Samba NMB Daemon...
-10月 14 12:00:37 RHEL9.6 nmbd[857]: [2025/10/14 12:00:37.276758,  0] ../../source3/nmbd/nmbd.c:901(main)
-10月 14 12:00:37 RHEL9.6 nmbd[857]:   nmbd version 4.21.3 started.
-10月 14 12:00:37 RHEL9.6 nmbd[857]:   Copyright Andrew Tridgell and the Samba Team 1992-2024
-10月 14 12:00:37 RHEL9.6 systemd[1]: Started Samba NMB Daemon.
+11月 04 16:36:38 RHEL9.6 systemd[1]: Starting Samba NMB Daemon...
+11月 04 16:36:38 RHEL9.6 nmbd[2004]: [2025/11/04 16:36:38.579518,  0] ../../source3/nmbd/nmbd.c:901(main)
+11月 04 16:36:38 RHEL9.6 nmbd[2004]:   nmbd version 4.21.3 started.
+11月 04 16:36:38 RHEL9.6 nmbd[2004]:   Copyright Andrew Tridgell and the Samba Team 1992-2024
+11月 04 16:36:38 RHEL9.6 systemd[1]: Started Samba NMB Daemon.
 ```
-
 ### 2. クライアントからのアクセス確認
 
-2-1. Linux クライアントでの検証 (AlmaLinux 9.6)
+2-1. Linux クライアント (AlmaLinux)
 
 共有フォルダのマウント
-```bash
-# 公開共有ディレクトリ (guest OK)  ※ マウント元サーバをFQDNで指定する場合はDNSサーバ起動必要、IPアドレス指定でも可
-sudo mount -t cifs //rhel.lab.lan/public /mnt/samba/public -o guest,vers=3.0
+```
+# 公開共有 ※ FQDN 指定時は DNS サーバ要起動、IPアドレス指定でも可
+sudo mount -t cifs //rhel.lab.lan/public /mnt/samba/public  -o guest,vers=3.0,uid=65534,gid=65534,file_mode=0666,dir_mode=0777
 
-# 認証付き共有ディレクトリ
-sudo mount -t cifs //rhel.lab.lan/share /mnt/samba/share -o username=alma,password=sambapass123,vers=3.0
+# 認証付共有
+sudo mount -t cifs //rhel.lab.lan/share /mnt/samba/share  -o username=ryo.s,password=ryotepass5566,vers=3.0,gid=2001,file_mode=0660,dir_mode=0770
 ```
 マウント確認
 ```
@@ -87,31 +94,39 @@ $ df -hT | grep cifs
 //rhel.lab.lan/public           cifs        17G  2.4G   15G   14% /mnt/samba/public
 //rhel.lab.lan/share            cifs        17G  2.4G   15G   14% /mnt/samba/share
 ```
-読み書きテスト
+読み書きテスト  
 ```
-sudo touch /mnt/samba/alma_test.txt
-ls -l /mnt/samba/alma_test.txt
-```
-出力結果：
-```
-$ sudo touch /mnt/samba/public/alma_test.txt
-$ ls -l /mnt/samba/public/alma_test.txt
--rwxr-xr-x. 1 root root 0 10月 14 14:04 /mnt/samba/public/alma_test.txt
-```
-2-2. Windows クライアントでの検証（Windows 11）
+# 公開共有（public）
 
-ネットワークアクセス確認　※ Windows のエクスプローラに入力して確認
+$ vi /mnt/samba/public/alma_test.txt
+$ ls -l /mnt/samba/public/alma_test.txt
+-rw-rw-rw-. 1 nobody nobody  0 11月  5 02:36 alma_test.txt
 ```
-# 認証あり共有フォルダ  
+```
+# 認証付共有（share）
+
+[root@Alma9 ~]# su - alma
+最終ログイン: 2025/11/04 (火) 16:10:40 JST 日時 pts/0
+[alma@Alma9 ~]$ vi /mnt/samba/share/alma_test.txt
+[alma@Alma9 ~]$ ls -l /mnt/samba/share/alma_test.txt
+-rw-rw----. 1 root smbusers 29 11月  5 02:57 /mnt/samba/share/alma_test.txt
+```
+2-2. Windows クライアント
+
+ネットワークアクセス確認　※ Windows エクスプローラから確認
+```
+# 認証ありフォルダ
+
 エクスプローラ：\\rhel.lab.lan\share  
 ユーザ名：alma  
 パスワード：********
 
-# 認証なし共有フォルダ  
+# 認証なしフォルダ
+
 エクスプローラ：\\rhel.lab.lan\public
 ```
-アクセス後、共有フォルダにファイル作成・削除が可能であることを確認  
-※ LinuxDNS の FQDN 反映方法は `DNS Server 構築手順記録` レポジトリの下側 `Windows で Linux DNSサーバの FQDN を反映させる` に記載
+アクセス後、共有フォルダにファイル作成・削除可能であることを確認（README.md 下方に画像添付）  
+※ Linux DNS の FQDN 反映方法は `DNS Server 構築手順記録` 下側 `Windows で Linux DNSサーバの FQDN を反映させる` に記載
 
 ### 3. SELinux / Firewall 動作確認（Samba Server）  
 
