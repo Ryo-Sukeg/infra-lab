@@ -24,12 +24,14 @@ sudo chmod -R 755 /srv/nfs/public
 sudo chown -R nobody:nobody /srv/nfs/public
 ```
 ```
-# 特定グループ共有（特定 UID/GID のみ書込可） ※ 共有用ユーザ作成方法は 3. 、共有ファイル他ユーザー編集不可時対処法は 4.に記載
+# 特定グループ共有（特定 UID/GID のみ書込可）
 
 sudo mkdir -p /srv/nfs/share
-sudo chmod -R 2770 /srv/nfs/share　※ 2770 について：2 → SetGID（グループ継承）770 → 所有者とグループのみ読み書き可
+sudo chmod -R 2770 /srv/nfs/share
 sudo chown -R root:devgroup /srv/nfs/share
 ```
+※ 共有用ユーザ作成方法は 3. 、共有ファイル他ユーザー編集不可時対処法は 4.に記載  
+2770 について：2 → SetGID（ディレクトリの場合：ディレクトリ内に作成された新ファイル・ディレクトリが親ディレクトリのグループ所有者を自動継承）770 → 所有者とグループのみ読み書き可
 ```
 # 管理者専用（管理者のみ書込可、バックアップ格納用）
 
@@ -143,7 +145,7 @@ sudo useradd -m -u 2001 -g devgroup stream　※ -m ホームディレクトリ�
 sudo useradd -m -u 2002 -g devgroup ubuntu
 sudo useradd -m -u 2004 -g devgroup alma
 ```
-3-2. クライアント側も同じ UID/GID で登録ユーザを作成（クライアントサーバごとにそれぞれのユーザ名で作成）
+3-2. クライアント側も同じ UID/GID で登録ユーザを作成（クライアントごとにそれぞれのユーザ名で作成）
 ```
 sudo groupadd -g 2000 devgroup
 sudo useradd -m -u 2001 -g devgroup stream
