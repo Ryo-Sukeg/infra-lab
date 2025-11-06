@@ -24,8 +24,8 @@
   |------|------|
   | ホストOS | Windows 11 |
   | 仮想化環境 | VirtualBox 7.1.10 |
-  | ゲストOS | CentOS_Stream 9 / Ubuntu 24.04.3 / RHEL 9.6 / AlmaLinux 9.6 |
-  | IPアドレス | 192.168.56.101 / 192.168.56.102 / 192.168.56.103 /  192.168.56.104 |
+  | ゲストOS | CentOS_Stream 9 / Ubuntu 24.04.3 / RHEL 9.6 / AlmaLinux 9.6 / Kali Linux 2025.3|
+  | IPアドレス | 192.168.56.101 / 192.168.56.102 / 192.168.56.103 /  192.168.56.104 / 192.168.56.105|
   | ネットワークアダプタ | NAT + Host-Only |
   | エディタ | サクラエディタ Ver.2.4.2.6048 |
   | バージョン管理 | Git for Windows v2.51.0 / GitHub |
@@ -33,7 +33,8 @@
 ## 今後の目標
 - 自宅サーバの構築情報を順次アップロード  
 - Zabbixへの監視対象サービスの追加
-- 監視・ログ収集・バックアップの連携実験  
+- 監視・ログ収集・バックアップの連携実験
+- Kali Linux によるセキュリティ検証
 - サーバ構築の一部自動化（Shellスクリプト化）
 
 <img width="1493" height="849" alt="image" src="https://github.com/user-attachments/assets/bff36017-aae3-4021-9f15-c5bb7cc082c1" />
