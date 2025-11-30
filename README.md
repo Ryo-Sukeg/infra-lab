@@ -1,6 +1,7 @@
 # Infra Lab - Ryo's IT Infrastructure Portfolio 
 このリポジトリは サーバ構築・運用の学習記録として作成しました。  
-個人検証環境で構築した各種サービス（DNS / NTP / Samba / LAMP環境 / Zabbixなど）の構築手順、設定、検証結果をまとめていきます。
+個人検証環境として構築した各種サービスについて、構築手順、設定、検証結果をまとめていきます。
+
 
 
 ### 構成一覧
@@ -19,12 +20,60 @@
   | 項 目 | 内 容 |
   |------|------|
   | ホストOS | Windows 11 |
+  | WSL | WSL2 Ubuntu 24.04 |
   | 仮想化環境 | VirtualBox 7.1.10 |
-  | ゲストOS | CentOS Stream 9 / Ubuntu 24.04.3 / RHEL 9.6 / AlmaLinux 9.6 / Kali Linux 2025.3 / Debian 12|
-  | IPアドレス |192.168.56.101 / 192.168.56.102 / 192.168.56.103 /  192.168.56.104 / 192.168.56.105 / 192.168.56.110|
+  | ゲストOS | CentOSStream9 / Ubuntu24.04.3 / RHEL9.6 / AlmaLinux9.6 / KaliLinux2025.3 / Debian12 |
+  | IPアドレス |192.168.56.101 ～ 105 / 192.168.56.110 |
   | ネットワークアダプタ | NAT + Host-Only |
   | エディタ | サクラエディタ Ver.2.4.2.6048 |
   | バージョン管理 | Git for Windows v2.51.0 / GitHub |
+
+
+
+### 各 OS の役割（カテゴリ別）
+
+
+管理・オーケストレーション
+| O S | 役 割 |
+|----|------|
+| WSL2 Ubuntu 24.04 | CA 認証局（SSH CA）、Ansible 管理ホスト |
+
+
+基盤サービス（DNS / NTP）
+| O S | 役 割 |
+|----|------|
+| CentOS Stream 9 | DNS（master）サーバ、NTP サーバ |
+| Ubuntu 24.04.3 | DNS（slave）サーバ、NTP サーバ |
+
+
+ストレージ・ファイル共有
+| O S | 役 割 |
+|----|------|
+| RHEL 9.6 | Samba サーバ、NFS サーバ |
+
+
+Web / DB / 監視（LAMP / Zabbix）
+| O S | 役 割 |
+|----|------|
+| AlmaLinux 9.6 | LAMP 環境（Apache / MySQL / PHP）および Zabbix サーバ |
+
+
+セキュリティ検証
+| O S | 役 割 |
+|----|------|
+| Kali Linux 2025.3 | セキュリティ検証・ペネトレーションテスト |
+
+
+セキュアなリモートアクセス・システム管理サーバ
+| O S | 役 割 |
+|----|------|
+| Debian 12 | ZeroTier エンドポイント、Fail2ban、msmtp（メール通知）、rsyslog（ログ集約）|
+
+
+モバイルクライアント
+| O S | 役 割 |
+|----|------|
+| Android（Termux）| ZeroTier クライアント、SSH ターミナル |
 
 ### 今後の目標
 - 自宅サーバの構築情報を順次アップロード  
