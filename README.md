@@ -71,9 +71,9 @@ Web / DB / 監視（LAMP / Zabbix）
 
 
 モバイルクライアント
-| O S | 役 割 |
-|----|------|
-| Android（Termux）| ZeroTier クライアント、SSH ターミナル |
+| デバイス名 | O S | 役 割 |
+|----|------|------|
+| Redmi14C | Android15（Termux）| ZeroTier クライアント、SSH ターミナル |
 
 ### 今後の目標
 - 自宅サーバの構築情報を順次アップロード  
